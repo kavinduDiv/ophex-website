@@ -1,0 +1,53 @@
+import { useState, useEffect } from "react";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import HeroSection from "@/components/sections/HeroSection";
+import ServicesSection from "@/components/sections/ServicesSection";
+import ProductsSection from "@/components/sections/ProductsSection";
+import ClientsSection from "@/components/sections/ClientsSection";
+import PortfolioSection from "@/components/sections/PortfolioSection";
+import TechnologiesSection from "@/components/sections/TechnologiesSection";
+import ContactSection from "@/components/sections/ContactSection";
+import PageLoader from "@/components/animations/PageLoader";
+import FloatingShapes from "@/components/animations/FloatingShapes";
+
+const Index = () => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // Check system preference or saved preference
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    
+    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+      setIsDark(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", !isDark ? "dark" : "light");
+  };
+
+  return (
+    <div className="min-h-screen bg-background relative">
+      <PageLoader />
+      <FloatingShapes />
+      <Header isDark={isDark} toggleTheme={toggleTheme} />
+      <main className="relative z-10">
+        <HeroSection />
+        <ServicesSection />
+        <ProductsSection />
+        <ClientsSection />
+        <PortfolioSection />
+        <TechnologiesSection />
+        <ContactSection />
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default Index;
