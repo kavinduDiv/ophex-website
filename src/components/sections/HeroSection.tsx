@@ -33,15 +33,15 @@ const HeroSection = () => {
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="animate-fade-in">
+          {/* <div className="animate-fade-in">
             <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-8 animate-glow-pulse">
               🚀 Transforming Ideas Into Digital Reality
             </span>
-          </div>
+          </div> */}
 
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-6 animate-slide-up">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-6 animate-slide-up mt-20">
             Build Your Digital Future with{" "}
-            <span className="text-gradient text-shimmer">ORHEX Software</span>
+            <span className="text-gradient text-shimmer">OPHEX Software</span>
           </h1>
 
           <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-10 animate-slide-up stagger-2">
@@ -67,9 +67,9 @@ const HeroSection = () => {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 animate-fade-in stagger-4">
             {[
-              { value: "150+", label: "Projects Completed" },
-              { value: "50+", label: "Happy Clients" },
-              { value: "8+", label: "Years Experience" },
+              { value: "20+", label: "Projects Completed" },
+              { value: "10+", label: "Happy Clients" },
+              { value: "2+", label: "Years Experience" },
               { value: "24/7", label: "Support" },
             ].map((stat, index) => (
               <div key={stat.label} className={`text-center stagger-${index + 4}`}>

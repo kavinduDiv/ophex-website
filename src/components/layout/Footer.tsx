@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.jpg";
 
 const Footer = () => {
   const services = [
@@ -130,7 +130,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-border mt-12 pt-8 text-center">
           <p className="text-muted-foreground">
-            © {new Date().getFullYear()} ORHEX Software. All rights reserved.
+            © {new Date().getFullYear()} OPHEX Software. All rights reserved.
           </p>
         </div>
       </div>
