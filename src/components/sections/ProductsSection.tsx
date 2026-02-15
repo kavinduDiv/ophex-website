@@ -1,161 +1,184 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Wrench, Package } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ScrollReveal from "@/components/animations/ScrollReveal";
-import productLms from "@/assets/product-lms.jpg";
-import productService from "@/assets/product-service.jpg";
-import productStock from "@/assets/product-stock.jpg";
-
-const products = [
-  {
-    id: "lms",
-    title: "LMS Platform",
-    subtitle: "Learning Management System",
-    description: "A comprehensive e-learning platform to create, manage, and deliver educational content with advanced analytics and engagement tools.",
-    icon: BookOpen,
-    image: productLms,
-    features: [
-      "Course Management",
-      "Student Progress Tracking",
-      "Interactive Assessments",
-      "Certificate Generation",
-      "Video Conferencing",
-      "Mobile Compatible",
-    ],
-  },
-  {
-    id: "service-center",
-    title: "Service Center",
-    subtitle: "Service Management System",
-    description: "Streamline your service operations with our powerful ticketing, scheduling, and customer management solution.",
-    icon: Wrench,
-    image: productService,
-    features: [
-      "Ticket Management",
-      "Customer Database",
-      "Service Scheduling",
-      "Parts Inventory",
-      "Invoice Generation",
-      "Performance Reports",
-    ],
-  },
-  {
-    id: "stock-management",
-    title: "Stock Management",
-    subtitle: "Inventory Control System",
-    description: "Take full control of your inventory with real-time tracking, automated reordering, and comprehensive reporting.",
-    icon: Package,
-    image: productStock,
-    features: [
-      "Real-time Tracking",
-      "Barcode Scanning",
-      "Multi-location Support",
-      "Automated Alerts",
-      "Purchase Orders",
-      "Detailed Analytics",
-    ],
-  },
-];
+import { products } from "@/data/products";
 
 const ProductsSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Auto-play effect
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (isAutoPlaying) {
+      interval = setInterval(() => {
+        handleNext();
+      }, 5000); // 5 seconds per slide
+    }
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, activeIndex]);
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % products.length);
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + products.length) % products.length);
+  };
+
+  const handleDotClick = (index: number) => {
+    setActiveIndex(index);
+    setIsAutoPlaying(false); // Pause on interaction
+  };
+
   return (
     <section id="products" className="py-24 bg-background relative overflow-hidden">
-      {/* Background Animation */}
+      {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-morph" />
-        <div className="absolute bottom-1/3 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-float-slow" />
+        <div className="absolute -top-20 -left-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 -right-20 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
+
+        {/* Header */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-            Our Products
+            Our Solutions
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Ready-to-Deploy <span className="text-gradient">Solutions</span>
+          <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6">
+            Innovative <span className="text-gradient">Products</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Powerful, scalable products designed to transform your business operations 
-            and enhance productivity.
+            Scalable, enterprise-grade software designed to optimize your operations.
           </p>
         </ScrollReveal>
 
-        {/* Products */}
-        <div className="space-y-24">
-          {products.map((product, index) => {
-            const Icon = product.icon;
-            const isReversed = index % 2 === 1;
+        {/* Carousel Container */}
+        <div className="relative max-w-6xl mx-auto">
 
-            return (
-              <div
-                key={product.id}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  isReversed ? "lg:grid-flow-dense" : ""
-                }`}
-              >
-                {/* Image */}
-                <ScrollReveal
-                  variant={isReversed ? "fade-right" : "fade-left"}
-                  delay={100}
-                  className={isReversed ? "lg:col-start-2" : ""}
+          {/* Main Slider Area */}
+          <div className="relative h-[500px] md:h-[600px] w-full overflow-hidden rounded-2xl shadow-2xl bg-slate-900 border border-slate-800">
+
+            {products.map((product, index) => {
+              const isActive = index === activeIndex;
+              // Determine if it was "previous" to slide out? For simple cross-fade/slide, use absolute positioning.
+
+              return (
+                <div
+                  key={product.id}
+                  className={`absolute inset-0 w-full h-full transition-all duration-700 ease-in-out transform
+                    ${isActive ? "opacity-100 translate-x-0 z-20" :
+                      index < activeIndex ? "opacity-0 -translate-x-full z-10" : "opacity-0 translate-x-full z-10"
+                    }
+                    ${isActive ? "scale-100" : "scale-95"}
+                  `}
                 >
-                  <div className="relative group">
-                    <div className="relative rounded-2xl overflow-hidden shadow-card-hover hover-lift">
-                      <img
-                        src={product.image}
-                        alt={product.title}
-                        className="w-full h-auto group-hover:scale-105 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </div>
-                    {/* Decorative Element */}
-                    <div className="absolute -z-10 -bottom-4 -right-4 w-full h-full bg-primary/10 rounded-2xl animate-pulse-slow" />
+                  {/* Image Background with Overlay */}
+                  <div className="absolute inset-0">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    />
+                    {/* Gradient Overlay - Stronger at bottom for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent opacity-90" />
                   </div>
-                </ScrollReveal>
 
-                {/* Content */}
-                <ScrollReveal
-                  variant={isReversed ? "fade-left" : "fade-right"}
-                  delay={200}
-                  className={isReversed ? "lg:col-start-1" : ""}
-                >
-                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 animate-float">
-                    <Icon className="h-7 w-7 text-primary" />
-                  </div>
-                  <span className="text-primary font-medium text-sm">{product.subtitle}</span>
-                  <h3 className="text-2xl md:text-3xl font-bold mt-2 mb-4">{product.title}</h3>
-                  <p className="text-muted-foreground text-lg mb-8">{product.description}</p>
+                  {/* Content Content Container */}
+                  <div className="absolute bottom-0 left-0 w-full h-full flex flex-col justify-end p-8 md:p-12 lg:p-16">
+                    <div className={`transform transition-all duration-700 delay-100 ${isActive ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
 
-                  {/* Features Grid */}
-                  <div className="grid grid-cols-2 gap-3 mb-8">
-                    {product.features.map((feature, featureIndex) => (
-                      <div 
-                        key={feature} 
-                        className="flex items-center gap-2 opacity-0 animate-fade-in"
-                        style={{ animationDelay: `${(featureIndex + 3) * 100}ms`, animationFillMode: 'forwards' }}
-                      >
-                        <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                        <span className="text-sm">{feature}</span>
+                      {/* Badge / Subtitle */}
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4 backdrop-blur-sm border border-primary/20">
+                        <product.icon size={16} />
+                        <span>{product.subtitle}</span>
                       </div>
-                    ))}
-                  </div>
 
-                  <div className="flex gap-4">
-                    <Button asChild className="hover-lift hover-glow">
-                      <Link to={`/products/${product.id}`}>
-                        Learn More
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <Button variant="outline" asChild className="hover-lift">
-                      <Link to="/#contact">Request Demo</Link>
-                    </Button>
+                      {/* Title */}
+                      <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                        {product.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-slate-300 text-lg md:text-xl max-w-2xl mb-8 leading-relaxed">
+                        {product.description}
+                      </p>
+
+                      {/* Feature Tags (Desktop) */}
+                      <div className="hidden md:flex flex-wrap gap-3 mb-8">
+                        {product.features.slice(0, 3).map((feat, i) => (
+                          <span key={i} className="px-3 py-1 bg-white/10 text-slate-200 text-sm rounded-md border border-white/10 backdrop-blur-sm">
+                            {feat}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex flex-wrap gap-4">
+                        <Button size="lg" className="bg-primary hover:bg-primary/90 text-white gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105" asChild>
+                          <Link to={`/products/${product.id}`}>
+                            Explore Details
+                            <ArrowRight size={18} />
+                          </Link>
+                        </Button>
+                        <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm transition-all" asChild>
+                          <Link to="/#contact">Book Demo</Link>
+                        </Button>
+                      </div>
+
+                    </div>
                   </div>
-                </ScrollReveal>
-              </div>
-            );
-          })}
+                </div>
+              );
+            })}
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={() => { handlePrev(); setIsAutoPlaying(false); }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 hover:bg-primary text-white border border-white/10 backdrop-blur-md transition-all hover:scale-110 group disabled:opacity-50"
+              aria-label="Previous Slide"
+            >
+              <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
+            </button>
+            <button
+              onClick={() => { handleNext(); setIsAutoPlaying(false); }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 hover:bg-primary text-white border border-white/10 backdrop-blur-md transition-all hover:scale-110 group"
+              aria-label="Next Slide"
+            >
+              <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
+            </button>
+
+            {/* Progress Indicators */}
+            <div className="absolute bottom-8 right-8 z-30 flex gap-2">
+              {products.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleDotClick(index)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${index === activeIndex ? "w-8 bg-primary" : "w-2 bg-white/40 hover:bg-white/60"
+                    }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Auto-play Control (Subtle) */}
+            <button
+              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+              className="absolute top-4 right-4 z-30 p-2 text-white/50 hover:text-white transition-colors"
+              title={isAutoPlaying ? "Pause Autoplay" : "Start Autoplay"}
+            >
+              {isAutoPlaying ? <Pause size={16} /> : <Play size={16} />}
+            </button>
+
+          </div>
+
+          {/* New: Thumbnails / Preview of others below? Optional, keeping streamlined for now */}
+
         </div>
       </div>
     </section>

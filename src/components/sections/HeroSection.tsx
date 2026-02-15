@@ -41,7 +41,7 @@ const HeroSection = () => {
 
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-6 animate-slide-up mt-20">
             Build Your Digital Future with{" "}
-            <span className="text-gradient text-shimmer">OPHEX Software</span>
+            <span className="text-gradient text-shimmer">OPHEX Solutions</span>
           </h1>
 
           <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-10 animate-slide-up stagger-2">

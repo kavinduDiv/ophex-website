@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import ServicePenguin from "@/components/ServicePenguin";
 import { ArrowLeft, ArrowRight, Check, Globe, ShoppingCart, Smartphone, Code, Megaphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
@@ -167,7 +168,7 @@ const ServiceDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header isDark={isDark} toggleTheme={toggleTheme} />
-      
+
       <main className="pt-20">
         {/* Hero Section */}
         <section className="relative py-24 overflow-hidden">
@@ -175,9 +176,9 @@ const ServiceDetail = () => {
             <img
               src={service.image}
               alt={service.title}
-              className="w-full h-full object-cover opacity-20"
+              className="w-full h-full object-cover opacity-50"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
           </div>
 
           <div className="container mx-auto px-4 relative z-10">
@@ -270,6 +271,7 @@ const ServiceDetail = () => {
         </section>
       </main>
 
+      <ServicePenguin serviceId={serviceId || ""} />
       <Footer />
     </div>
   );
