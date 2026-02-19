@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import ServicePenguin from "@/components/ServicePenguin";
-import { ArrowLeft, ArrowRight, Check, Globe, ShoppingCart, Smartphone, Code, Megaphone } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Globe, ShoppingCart, Smartphone, Code, Megaphone, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -10,6 +10,7 @@ import serviceEcommerce from "@/assets/service-ecommerce.jpg";
 import serviceApp from "@/assets/service-app.jpg";
 import serviceSoftware from "@/assets/service-software.jpg";
 import serviceMarketing from "@/assets/service-marketing.jpg";
+import serviceIotAi from "@/assets/service-iot&ai.jpg";
 
 const servicesData = {
   "web-development": {
@@ -127,15 +128,41 @@ const servicesData = {
       { step: "Scaling", desc: "Expanding successful campaigns" },
     ],
   },
+  "iot-ai": {
+    title: "IOT and AI Integration",
+    subtitle: "Smart Solutions for a Connected World",
+    description: "Leverage the power of Internet of Things and Artificial Intelligence to optimize operations and drive innovation.",
+    icon: Bot,
+    image: serviceIotAi,
+    features: [
+      "Smart Sensors & Data Acquisition",
+      "Advanced Data Analytics",
+      "Automated Control Systems",
+      "Predictive Maintenance",
+      "Edge Computing Integration",
+      "Custom AI Models",
+    ],
+    process: [
+      { step: "Consultation", desc: "Assess needs and infrastructure" },
+      { step: "Design", desc: "Architect IoT ecosystem" },
+      { step: "Integration", desc: "Connect devices and AI models" },
+      { step: "Deployment", desc: "Rollout and calibration" },
+      { step: "Monitoring", desc: "Real-time data tracking" },
+      { step: "Optimization", desc: "AI-driven improvements" },
+    ],
+  },
 };
 
 const ServiceDetail = () => {
   const { serviceId } = useParams();
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
+    if (savedTheme === "light") {
+      setIsDark(false);
+      document.documentElement.classList.remove("dark");
+    } else {
       setIsDark(true);
       document.documentElement.classList.add("dark");
     }

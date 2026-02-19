@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Globe, ShoppingCart, Smartphone, Code, Megaphone } from "lucide-react";
+import { ArrowRight, Globe, ShoppingCart, Smartphone, Code, Megaphone, Bot } from "lucide-react";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import serviceWeb from "@/assets/service-web.jpg";
 import serviceEcommerce from "@/assets/service-ecommerce.jpg";
 import serviceApp from "@/assets/service-app.jpg";
 import serviceSoftware from "@/assets/service-software.jpg";
 import serviceMarketing from "@/assets/service-marketing.jpg";
+import serviceIotAi from "@/assets/service-iot&ai.jpg";
 
 const services = [
   {
@@ -48,6 +49,14 @@ const services = [
     image: serviceMarketing,
     features: ["SEO/SEM", "Social Media", "Analytics"],
   },
+  {
+    id: "iot-ai",
+    title: "IOT and AI Integration",
+    description: "Seamlessly connect physical devices with intelligent AI algorithms for smarter operations.",
+    icon: Bot,
+    image: serviceIotAi,
+    features: ["Smart Automation", "Predictive Analytics", "Real-time Monitoring"],
+  },
 ];
 
 const ServicesSection = () => {
@@ -69,7 +78,7 @@ const ServicesSection = () => {
             Solutions That Drive <span className="text-gradient">Growth</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            We offer comprehensive digital solutions to help your business thrive 
+            We offer comprehensive digital solutions to help your business thrive
             in the modern marketplace.
           </p>
         </ScrollReveal>
@@ -106,7 +115,7 @@ const ServicesSection = () => {
                       {service.title}
                     </h3>
                     <p className="text-muted-foreground mb-4">{service.description}</p>
-                    
+
                     {/* Features */}
                     <div className="flex flex-wrap gap-2 mb-6">
                       {service.features.map((feature) => (

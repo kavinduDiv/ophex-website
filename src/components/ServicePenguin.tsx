@@ -38,6 +38,7 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
             case "app-development": return "mobile";
             case "software-development": return "server";
             case "marketing": return "marketing";
+            case "iot-ai": return "iot";
             default: return "waving";
         }
     };
@@ -48,7 +49,9 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
             case "shopping": return "Ready to shop?";
             case "mobile": return "Tap tap tap!";
             case "server": return "System stable.";
+            case "server": return "System stable.";
             case "marketing": return "Loud & Clear!";
+            case "iot": return "Processing...";
             default: return "Hello there!";
         }
     };
@@ -125,6 +128,8 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
                     </div>
                 )}
 
+
+
                 {/* === THE PENGUIN === */}
                 <div
                     className={`absolute left-2 md:left-20 xl:left-1/3 transition-all duration-700 ease-in-out z-30 pointer-events-auto cursor-pointer
@@ -134,15 +139,30 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     onClick={handleInteraction}
+                    // Hide original body for IOT variant to replace with new structure
+                    style={{ display: variant === 'iot' ? 'none' : 'block' }}
                 >
 
                     {/* Body Shape */}
                     <div className="relative w-40 xl:w-56 h-52 xl:h-72 bg-gradient-to-br from-slate-800 to-slate-950 rounded-[50%_50%_45%_45%_/_60%_60%_35%_35%] shadow-2xl overflow-hidden border-2 border-slate-900/50">
                         {/* Texture */}
-                        <div className="absolute top-4 right-10 w-10 h-10 bg-white/5 rounded-full blur-xl"></div>
+                        {variant !== 'iot' && (
+                            <div className="absolute top-4 right-10 w-10 h-10 bg-white/5 rounded-full blur-xl"></div>
+                        )}
 
                         {/* Belly */}
-                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-28 xl:w-40 h-40 xl:h-56 bg-gradient-to-b from-white to-gray-100 rounded-[50%_50%_40%_40%_/_70%_70%_30%_30%] shadow-inner"></div>
+                        <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-28 xl:w-40 h-40 xl:h-56 rounded-[50%_50%_40%_40%_/_70%_70%_30%_30%] shadow-inner ${variant === 'iot'
+                            ? 'bg-gradient-to-b from-slate-300 to-slate-400 border-x border-slate-500/30'
+                            : 'bg-gradient-to-b from-white to-gray-100'
+                            }`}>
+                            {variant === 'iot' && (
+                                <div className="absolute top-8 left-1/2 -translate-x-1/2 w-16 h-24 flex flex-col gap-2 opacity-50">
+                                    <div className="h-0.5 w-full bg-slate-500"></div>
+                                    <div className="h-0.5 w-full bg-slate-500"></div>
+                                    <div className="h-0.5 w-full bg-slate-500"></div>
+                                </div>
+                            )}
+                        </div>
 
                         {/* === FACE LAYER === */}
                         <div className="absolute inset-0 z-50">
@@ -151,7 +171,7 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
                                 {/* Left Eye */}
                                 <div className="relative w-8 xl:w-10 h-10 xl:h-12 bg-white rounded-full shadow-lg border border-gray-100 overflow-hidden">
                                     <div
-                                        className={`absolute w-3 xl:w-4 h-4 xl:h-5 bg-slate-900 rounded-full transition-transform duration-300`}
+                                        className={`absolute w-3 xl:w-4 h-4 xl:h-5 rounded-full transition-transform duration-300 ${variant === 'iot' ? 'bg-orange-500 shadow-[0_0_10px_#f97316]' : 'bg-slate-900'}`}
                                         style={{
                                             top: '50%', left: '50%',
                                             transform: `translate(-50%, -50%) translate(${lookDirection.x}px, ${lookDirection.y}px) scaleY(${isBlinking ? 0.1 : 1})`
@@ -163,7 +183,7 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
                                 {/* Right Eye */}
                                 <div className="relative w-8 xl:w-10 h-10 xl:h-12 bg-white rounded-full shadow-lg border border-gray-100 overflow-hidden">
                                     <div
-                                        className={`absolute w-3 xl:w-4 h-4 xl:h-5 bg-slate-900 rounded-full transition-transform duration-300`}
+                                        className={`absolute w-3 xl:w-4 h-4 xl:h-5 rounded-full transition-transform duration-300 ${variant === 'iot' ? 'bg-orange-500 shadow-[0_0_10px_#f97316]' : 'bg-slate-900'}`}
                                         style={{
                                             top: '50%', left: '50%',
                                             transform: `translate(-50%, -50%) translate(${lookDirection.x}px, ${lookDirection.y}px) scaleY(${isBlinking ? 0.1 : 1})`
@@ -175,7 +195,10 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
                             </div>
 
                             {/* Beak */}
-                            <div className={`absolute top-24 xl:top-32 left-1/2 -translate-x-1/2 w-6 xl:w-8 h-6 xl:h-8 bg-gradient-to-r from-orange-500 to-yellow-500 rotate-45 rounded-lg shadow-sm border border-orange-600 mt-2 transition-all duration-100 ${isPecking ? 'scale-90 rotate-12' : ''}`}>
+                            <div className={`absolute top-24 xl:top-32 left-1/2 -translate-x-1/2 w-6 xl:w-8 h-6 xl:h-8 rotate-45 rounded-lg shadow-sm border mt-2 transition-all duration-100 ${variant === 'iot'
+                                ? 'bg-gray-700 border-gray-600'
+                                : 'bg-gradient-to-r from-orange-500 to-yellow-500 border-orange-600'
+                                } ${isPecking ? 'scale-90 rotate-12' : ''}`}>
                                 <div className="absolute top-1 left-1 w-2 h-2 bg-white/30 rounded-full"></div>
                             </div>
 
@@ -191,8 +214,8 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
                     </div>
 
                     {/* Feet */}
-                    <div className="absolute -bottom-3 left-6 xl:left-8 w-12 xl:w-16 h-6 xl:h-8 bg-orange-600 rounded-full z-0 shadow-md"></div>
-                    <div className="absolute -bottom-3 right-6 xl:right-8 w-12 xl:w-16 h-6 xl:h-8 bg-orange-600 rounded-full z-0 shadow-md"></div>
+                    <div className={`absolute -bottom-3 left-6 xl:left-8 w-12 xl:w-16 h-6 xl:h-8 rounded-full z-0 shadow-md ${variant === 'iot' ? 'bg-gray-600' : 'bg-orange-600'}`}></div>
+                    <div className={`absolute -bottom-3 right-6 xl:right-8 w-12 xl:w-16 h-6 xl:h-8 rounded-full z-0 shadow-md ${variant === 'iot' ? 'bg-gray-600' : 'bg-orange-600'}`}></div>
 
 
                     {/* === ACCESSORIES & ARMS (Layered carefully) === */}
@@ -308,9 +331,62 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
                             </div>
                         </>
                     )}
-
                 </div>
             </div>
+
+            {/* === IOT VARIANT (EVE STYLE) === */}
+            {variant === "iot" && (
+                <div
+                    className={`absolute left-2 md:left-20 xl:left-1/3 transition-all duration-700 ease-in-out z-30 pointer-events-auto cursor-pointer bottom-24 xl:bottom-40
+                        ${isPecking ? 'scale-95' : 'hover:scale-105'}
+                        flex flex-col items-center
+                        `}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onClick={handleInteraction}
+                >
+                    {/* Electro-Magnetic Field / Glow */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/5 rounded-full blur-3xl animate-pulse"></div>
+
+                    {/* Floating Head */}
+                    <div className="relative mb-4 w-32 xl:w-40 h-24 xl:h-28 bg-gradient-to-br from-white via-slate-100 to-slate-300 rounded-[50%_50%_45%_45%_/_60%_60%_40%_40%] shadow-[0_10px_20px_rgba(0,0,0,0.1)] z-50 animate-float-slow">
+                        {/* Face Screen */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-24 xl:w-32 h-16 xl:h-20 bg-black rounded-[45%] overflow-hidden shadow-inner flex items-center justify-center gap-3 xl:gap-4">
+                            {/* Neon Orange Eyes */}
+                            <div className={`w-6 xl:w-8 h-4 xl:h-5 bg-[#f97316] rounded-full shadow-[0_0_15px_#f97316] transition-all duration-100 ${isBlinking ? 'scale-y-10' : 'scale-y-100'}`}
+                                style={{ transform: `translate(${lookDirection.x * 2}px, ${lookDirection.y * 2}px) scaleY(${isBlinking ? 0.1 : 1})` }}></div>
+                            <div className={`w-6 xl:w-8 h-4 xl:h-5 bg-[#f97316] rounded-full shadow-[0_0_15px_#f97316] transition-all duration-100 ${isBlinking ? 'scale-y-10' : 'scale-y-100'}`}
+                                style={{ transform: `translate(${lookDirection.x * 2}px, ${lookDirection.y * 2}px) scaleY(${isBlinking ? 0.1 : 1})` }}></div>
+
+                            {/* Cute Digital Beak */}
+                            <div className="absolute top-[70%] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[10px] border-t-[#f97316] drop-shadow-[0_0_5px_#f97316]"></div>
+                        </div>
+
+                        {/* Gloss Reflection */}
+                        <div className="absolute top-2 left-6 w-8 h-4 bg-white/40 rounded-full rotate-12 blur-[1px]"></div>
+                    </div>
+
+                    {/* Connection Waves (Neck) */}
+                    <div className="absolute top-[5.5rem] xl:top-[6.4rem] left-1/2 -translate-x-1/2 w-12 h-8 flex flex-col items-center justify-center gap-1 opacity-60">
+                        {[1, 2, 3].map(i => (
+                            <div key={i} className={`w-full h-[1px] bg-cyan-400 shadow-[0_0_5px_#22d3ee] rounded-full animate-ping-slow`} style={{ animationDelay: `${i * 0.5}s` }}></div>
+                        ))}
+                    </div>
+
+                    {/* Floating Body */}
+                    <div className="relative w-36 xl:w-48 h-48 xl:h-64 bg-gradient-to-br from-white via-slate-100 to-slate-200 rounded-[50%_50%_40%_40%_/_60%_60%_30%_30%] shadow-2xl z-40 animate-float-medium flex flex-col items-center overflow-hidden">
+                        {/* Chest Light */}
+                        <div className="mt-8 w-16 h-16 bg-gradient-to-br from-slate-200 to-white rounded-full border border-slate-300/50 flex items-center justify-center shadow-inner">
+                            <div className="w-2 h-2 bg-green-400 rounded-full shadow-[0_0_8px_#4ade80] animate-pulse"></div>
+                        </div>
+                    </div>
+
+                    {/* Floating Arms */}
+                    <div className="absolute top-36 -left-8 xl:-left-12 w-10 xl:w-14 h-32 xl:h-40 bg-gradient-to-r from-white to-slate-200 rounded-full shadow-lg z-40 animate-float-reverse origin-top rotate-12"></div>
+                    <div className="absolute top-36 -right-8 xl:-right-12 w-10 xl:w-14 h-32 xl:h-40 bg-gradient-to-l from-white to-slate-200 rounded-full shadow-lg z-40 animate-float-reverse-delayed origin-top -rotate-12"></div>
+
+                </div>
+            )}
 
             <style>{`
         /* Animations */
@@ -370,6 +446,37 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
         .animate-grow-2 { animation: grow-2 1.2s ease-out forwards; }
         .animate-grow-3 { animation: grow-3 1.4s ease-out forwards; }
         .animate-grow-4 { animation: grow-4 1.6s ease-out forwards; }
+
+        .animate-grow-4 { animation: grow-4 1.6s ease-out forwards; }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .animate-float-slow { animation: float-slow 4s ease-in-out infinite; }
+
+        @keyframes float-medium {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-float-medium { animation: float-medium 3s ease-in-out infinite; }
+
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0) rotate(12deg); }
+            50% { transform: translateY(-10px) rotate(8deg); }
+        }
+        .animate-float-reverse { animation: float-reverse 3.5s ease-in-out infinite; }
+
+        @keyframes float-reverse-delayed {
+            0%, 100% { transform: translateY(0) rotate(-12deg); }
+            50% { transform: translateY(-10px) rotate(-8deg); }
+        }
+        .animate-float-reverse-delayed { animation: float-reverse-delayed 3.5s ease-in-out infinite 0.5s; }
+
+        @keyframes ping-slow {
+             75%, 100% { transform: scale(2); opacity: 0; }
+        }
+        .animate-ping-slow { animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         .animate-blink { animation: blink 0.5s infinite; }

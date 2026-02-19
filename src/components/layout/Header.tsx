@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.jpg";
+import ophexDark from "@/assets/ophex_dark.png";
+import ophexLight from "@/assets/ophex_light.png";
 
 interface HeaderProps {
   isDark: boolean;
@@ -43,17 +44,22 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-card border-b border-border"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? isDark
+            ? "bg-background/95 backdrop-blur-md shadow-card border-b border-border"
+            : "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100" // Light mode specific styling
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="ORHEX Software" className="h-12 w-auto" />
+            <img
+              src={isDark ? ophexDark : ophexLight}
+              alt="ORHEX Software"
+              className="h-12 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
