@@ -11,7 +11,7 @@ const ProductsSection = () => {
 
   // Auto-play effect
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
 
     if (isAutoPlaying) {
       interval = setInterval(() => {
@@ -89,37 +89,46 @@ const ProductsSection = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent opacity-90" />
                   </div>
 
-                  {/* Content Content Container */}
-                  <div className="absolute bottom-0 left-0 w-full h-full flex flex-col justify-end p-8 md:p-12 lg:p-16">
-                    <div className={`transform transition-all duration-700 delay-100 ${isActive ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+                  {/* Content Container - Glass Veil Card */}
+                  <div className="absolute bottom-0 left-0 w-full h-full flex flex-col justify-end p-4 md:p-10 lg:p-12 pointer-events-none">
+                    <div className={`
+                      relative max-w-3xl w-full
+                      bg-slate-950/70 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl p-6 md:p-8 lg:p-10
+                      transform transition-all duration-700 delay-100 pointer-events-auto
+                      overflow-hidden
+                      ${isActive ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"}
+                    `}>
+
+                      {/* Decorative Gloss Effect */}
+                      <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
 
                       {/* Badge / Subtitle */}
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4 backdrop-blur-sm border border-primary/20">
-                        <product.icon size={16} />
-                        <span>{product.subtitle}</span>
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary-foreground text-sm font-medium mb-4 backdrop-blur-sm border border-primary/20 relative z-10">
+                        <product.icon size={16} className="text-primary" />
+                        <span className="text-primary">{product.subtitle}</span>
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                      <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight relative z-10">
                         {product.title}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-slate-300 text-lg md:text-xl max-w-2xl mb-8 leading-relaxed">
+                      <p className="text-slate-200 text-base md:text-lg mb-6 leading-relaxed relative z-10">
                         {product.description}
                       </p>
 
                       {/* Feature Tags (Desktop) */}
-                      <div className="hidden md:flex flex-wrap gap-3 mb-8">
+                      <div className="hidden md:flex flex-wrap gap-2 mb-8 relative z-10">
                         {product.features.slice(0, 3).map((feat, i) => (
-                          <span key={i} className="px-3 py-1 bg-white/10 text-slate-200 text-sm rounded-md border border-white/10 backdrop-blur-sm">
+                          <span key={i} className="px-3 py-1 bg-white/5 text-slate-200 text-xs md:text-sm rounded-md border border-white/10 backdrop-blur-sm">
                             {feat}
                           </span>
                         ))}
                       </div>
 
                       {/* Actions */}
-                      <div className="flex flex-wrap gap-4">
+                      <div className="flex flex-wrap gap-4 relative z-10">
                         <Button size="lg" className="bg-primary hover:bg-primary/90 text-white gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105" asChild>
                           <Link to={`/products/${product.id}`}>
                             Explore Details
@@ -130,7 +139,6 @@ const ProductsSection = () => {
                           <Link to="/#contact">Book Demo</Link>
                         </Button>
                       </div>
-
                     </div>
                   </div>
                 </div>

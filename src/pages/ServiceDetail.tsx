@@ -299,7 +299,7 @@ const ServiceDetail = () => {
       </main>
 
       <ServicePenguin serviceId={serviceId || ""} />
-      <Footer />
+      <Footer isDark={isDark} />
     </div>
   );
 };

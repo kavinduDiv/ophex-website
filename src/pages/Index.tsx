@@ -48,7 +48,7 @@ const Index = () => {
         <TechnologiesSection />
         <ContactSection />
       </main>
-      <Footer />
+      <Footer isDark={isDark} />
     </div>
   );
 };

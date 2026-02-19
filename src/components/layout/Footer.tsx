@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
-import logo from "@/assets/logo.jpg";
+import ophexDark from "@/assets/ophex_dark.png";
+import ophexLight from "@/assets/ophex_light.png";
 
-const Footer = () => {
+interface FooterProps {
+  isDark: boolean;
+}
+
+const Footer = ({ isDark }: FooterProps) => {
   const services = [
     { name: "Web Development", href: "/services/web-development" },
     { name: "E-Commerce", href: "/services/ecommerce" },
@@ -31,10 +36,10 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-6">
             <Link to="/">
-              <img src={logo} alt="ORHEX Software" className="h-12 w-auto" />
+              <img src={isDark ? ophexDark : ophexLight} alt="OPHEX Software" className="h-12 w-auto" />
             </Link>
             <p className="text-muted-foreground leading-relaxed">
-              Transforming ideas into powerful digital solutions. We build innovative 
+              Transforming ideas into powerful digital solutions. We build innovative
               software that drives business growth.
             </p>
             <div className="flex gap-4">
