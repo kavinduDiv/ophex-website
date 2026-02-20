@@ -1,12 +1,7 @@
-import { useState } from "react";
+
 import { motion } from "framer-motion";
 import ScrollReveal from "@/components/animations/ScrollReveal";
-import {
-  Code2, Database, Globe, Server,
-  Smartphone, Cloud, Terminal, Zap,
-  Box, Layout, Command,
-  Hash, Coffee, FileJson
-} from "lucide-react";
+
 
 // Tech Data with Real Logo URLs (Simple Icons + Wikimedia Fallbacks)
 const technologies = [
@@ -40,6 +35,7 @@ const technologies = [
   { name: "Docker", category: "DevOps", color: "#2496ED", image: "https://cdn.simpleicons.org/docker/2496ED" },
   { name: "Git", category: "DevOps", color: "#F05032", image: "https://cdn.simpleicons.org/git/F05032" },
   { name: "Redis", category: "Database", color: "#DC382D", image: "https://cdn.simpleicons.org/redis/DC382D" },
+  { name: "Firebase", category: "Cloud", color: "#FFCA28", image: "https://cdn.simpleicons.org/firebase/FFCA28" },
 ];
 
 const categories = ["Frontend", "Backend", "Mobile", "Database", "Cloud", "DevOps"];
@@ -107,7 +103,7 @@ const TechnologiesSection = () => {
                 <div className="flex flex-wrap gap-3 pl-4">
                   {technologies
                     .filter((t) => t.category === category)
-                    .map((tech, techIndex) => (
+                    .map((tech) => (
                       <div
                         key={tech.name}
                         className="group px-4 py-2 bg-card/80 backdrop-blur-sm border border-border/50 rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 cursor-default shadow-sm hover:shadow-md flex items-center gap-2"
@@ -125,40 +121,40 @@ const TechnologiesSection = () => {
           </div>
 
           {/* RIGHT COLUMN: The "Bunch" of Logos (Desktop Only) */}
-          <div className="hidden lg:block relative sticky top-24 p-8 bg-slate-50/50 dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800">
-            <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+          <div className="hidden lg:block relative sticky top-24 p-8 xl:p-12 bg-slate-50/50 dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800">
+            <div className="grid grid-cols-4 gap-6 xl:gap-8 justify-items-center">
               {technologies.map((tech, i) => (
                 <motion.div
                   key={tech.name}
-                  className="relative w-16 h-16 flex items-center justify-center bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 cursor-pointer group"
+                  className="relative w-20 h-20 xl:w-24 xl:h-24 flex items-center justify-center bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 cursor-pointer group"
                   whileHover={{
-                    scale: 1.2,
-                    rotate: 5,
+                    scale: 1.25,
+                    rotate: Math.random() > 0.5 ? 8 : -8,
                     zIndex: 50,
-                    boxShadow: `0 10px 25px -5px ${tech.color}40`,
+                    boxShadow: `0 15px 30px -5px ${tech.color}50`,
                     borderColor: tech.color
                   }}
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{
                     opacity: 1,
                     scale: 1,
-                    y: [0, -8, 0], // Gentle float
+                    y: [0, -12, 0], // Increased float distance
                   }}
                   transition={{
-                    opacity: { duration: 0.5, delay: i * 0.05 },
-                    scale: { duration: 0.5, delay: i * 0.05 },
+                    opacity: { duration: 0.5, delay: i * 0.03 },
+                    scale: { duration: 0.5, delay: i * 0.03 },
                     y: {
-                      duration: 3 + Math.random() * 2, // Randomize float speed
+                      duration: 3 + Math.random() * 3, // Randomize float speed more
                       repeat: Infinity,
                       ease: "easeInOut",
-                      delay: Math.random() * 2
+                      delay: Math.random() * 5 // Randomize start times significantly
                     }
                   }}
                 >
-                  <img src={tech.image} alt={tech.name} className="w-8 h-8 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" />
+                  <img src={tech.image} alt={tech.name} className="w-10 h-10 xl:w-12 xl:h-12 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" />
 
                   {/* Hover Tooltip */}
-                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-popover text-popover-foreground text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none z-50">
+                  <div className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-popover text-popover-foreground font-medium text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl pointer-events-none z-50 border border-border">
                     {tech.name}
                   </div>
                 </motion.div>
