@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
@@ -9,10 +10,25 @@ import PortfolioSection from "@/components/sections/PortfolioSection";
 import TechnologiesSection from "@/components/sections/TechnologiesSection";
 import ContactSection from "@/components/sections/ContactSection";
 import PageLoader from "@/components/animations/PageLoader";
+
 import FloatingShapes from "@/components/animations/FloatingShapes";
 
 const Index = () => {
   const [isDark, setIsDark] = useState(true);
+  const location = useLocation();
+
+  // Explicit hash scrolling
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 150); // slight delay to ensure layout is ready
+      }
+    }
+  }, [location.hash, location.pathname]);
 
   useEffect(() => {
     // Check system preference or saved preference

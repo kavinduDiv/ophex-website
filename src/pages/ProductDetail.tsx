@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect } from "react";
-import { ArrowLeft, CheckCircle, ExternalLink, Activity, Target, Shield, Clock, BookOpen, Wrench, Package, Rocket } from "lucide-react";
+import { ArrowLeft, CheckCircle, Activity, Target, Shield, Clock, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
 import ScrollReveal from "@/components/animations/ScrollReveal";
@@ -10,6 +10,14 @@ const ProductDetail = () => {
   const product = products.find((p) => p.id === productId);
 
   useEffect(() => {
+    // Theme Initialization
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+
     window.scrollTo(0, 0);
   }, [productId]);
 
