@@ -2,8 +2,25 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import logo from "@/assets/logo.jpg";
 
+const circuitPaths = [
+  "M 0 150 H 300 L 350 200 H 800 L 850 150 H 1920",
+  "M 0 300 H 150 L 200 250 H 500 L 550 300 H 1920",
+  "M 0 700 H 400 L 450 750 H 900 L 950 700 H 1920",
+  "M 0 900 H 600 L 650 850 H 1200 L 1250 900 H 1920",
+  "M 1920 200 H 1600 L 1550 250 H 1200 L 1150 200 H 0",
+  "M 1920 600 H 1400 L 1350 550 H 800 L 750 600 H 0",
+  "M 1920 800 H 1700 L 1650 750 H 1300 L 1250 800 H 0",
+  "M 200 0 V 150 L 250 200 V 500 L 200 550 V 1080",
+  "M 1600 0 V 300 L 1550 350 V 800 L 1600 850 V 1080",
+  "M 0 450 H 250 L 300 400 H 600",
+  "M 1920 500 H 1500 L 1450 450 H 1000",
+  "M 0 850 H 350 L 400 900 H 700",
+  "M 1920 350 H 1750 L 1700 400 H 1300",
+  "M 800 0 V 200 L 850 250 V 400",
+  "M 1200 1080 V 900 L 1150 850 V 600"
+];
+
 const PageLoader = () => {
-  const circuitLines = Array.from({ length: 15 }); // 15 horizontal circuit lines
   const [loading, setLoading] = useState(() => !sessionStorage.getItem("hasLoadedOnce"));
   const [fadeOut, setFadeOut] = useState(false);
 
@@ -40,28 +57,43 @@ const PageLoader = () => {
       {/* Absolute Black Background */}
       <div className="absolute inset-0 bg-black pointer-events-none" />
 
-      {/* Dynamic Neon Circuit Lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
-        {circuitLines.map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-[1px] bg-gradient-to-r from-transparent via-orange-500 to-transparent shadow-[0_0_8px_rgba(249,115,22,0.8)]"
-            style={{
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 200 + 50}px`, // Random line length
-              left: "-300px", // Start off-screen left
-            }}
-            animate={{
-              left: "120%", // Move off-screen right
-            }}
-            transition={{
-              duration: Math.random() * 2 + 1.5, // Random speed
-              repeat: Infinity,
-              delay: Math.random() * 2,
-              ease: "linear",
-            }}
-          />
-        ))}
+      {/* Dynamic Neon Circuit Paths (SVG) */}
+      <div className="absolute inset-0 pointer-events-none opacity-60">
+        <svg
+          className="w-full h-full"
+          viewBox="0 0 1920 1080"
+          preserveAspectRatio="none"
+        >
+          {circuitPaths.map((d, i) => (
+            <g key={i}>
+              {/* Faint background track */}
+              <path
+                d={d}
+                fill="none"
+                stroke="rgba(249,115,22,0.15)"
+                strokeWidth="1"
+              />
+              {/* Animated glowing spark traveling along the path */}
+              <motion.path
+                d={d}
+                fill="none"
+                stroke="rgba(249,115,22,1)"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeDasharray="150 4000"
+                initial={{ strokeDashoffset: 4000 }}
+                animate={{ strokeDashoffset: -4000 }}
+                transition={{
+                  duration: Math.random() * 3 + 3, // Random speed between 3s and 6s
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: Math.random() * 2, // Staggered start times
+                }}
+                className="drop-shadow-[0_0_8px_rgba(249,115,22,1)]"
+              />
+            </g>
+          ))}
+        </svg>
       </div>
 
       <div className="flex flex-col items-center gap-12 relative z-10 w-full max-w-md px-8">
