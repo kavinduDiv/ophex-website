@@ -18,7 +18,7 @@ const technologies = [
   // Backend
   { name: "Node.js", category: "Backend", color: "#339933", image: "https://cdn.simpleicons.org/nodedotjs/339933" },
   { name: "Python", category: "Backend", color: "#3776AB", image: "https://cdn.simpleicons.org/python/3776AB" },
-  { name: "Java", category: "Backend", color: "#007396", image: "https://cdn.simpleicons.org/openjdk/007396" },
+  { name: "Java", category: "Backend", color: "#007396", image: "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" },
   { name: "PHP", category: "Backend", color: "#777BB4", image: "https://cdn.simpleicons.org/php/777BB4" },
   { name: ".NET", category: "Backend", color: "#512BD4", image: "https://upload.wikimedia.org/wikipedia/commons/7/7d/Microsoft_.NET_logo.svg" },
 

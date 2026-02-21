@@ -49,7 +49,6 @@ const ServicePenguin = ({ serviceId }: { serviceId: string }) => {
             case "shopping": return "Ready to shop?";
             case "mobile": return "Tap tap tap!";
             case "server": return "System stable.";
-            case "server": return "System stable.";
             case "marketing": return "Loud & Clear!";
             case "iot": return "Processing...";
             default: return "Hello there!";

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import logo from "@/assets/logo.jpg";
+import ophexDark from "@/assets/ophex_dark.png";
+import ophexLight from "@/assets/ophex_light.png";
 
 const circuitPaths = [
   "M 0 150 H 300 L 350 200 H 800 L 850 150 H 1920",
@@ -117,11 +118,22 @@ const PageLoader = () => {
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
 
-          <img
-            src={logo}
-            alt="ORHEX Software"
-            className="h-28 w-auto relative z-10 drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]"
-          />
+          <div className="relative h-28 w-64 flex items-center justify-center z-10 drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]">
+            {/* Base Dark Logo */}
+            <img
+              src={ophexDark}
+              alt="ORHEX Software Dark"
+              className="absolute inset-0 w-full h-full object-contain"
+            />
+            {/* Alternating Light Logo for "Brightening" Effect */}
+            <motion.img
+              src={ophexLight}
+              alt="ORHEX Software Light"
+              className="absolute inset-0 w-full h-full object-contain"
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
         </motion.div>
 
         {/* Loading Progress Section */}

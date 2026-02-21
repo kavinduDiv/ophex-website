@@ -93,7 +93,10 @@ const ServicesSection = () => {
                 variant="zoom-in"
                 delay={index * 100}
               >
-                <div className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2 hover-glow h-full">
+                <Link
+                  to={`/services/${service.id}`}
+                  className="group flex flex-col bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2 hover-glow h-full"
+                >
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img
@@ -114,7 +117,7 @@ const ServicesSection = () => {
                     <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
                       {service.title}
                     </h3>
-                    <p className="text-muted-foreground mb-4">{service.description}</p>
+                    <p className="text-muted-foreground mb-4 line-clamp-3">{service.description}</p>
 
                     {/* Features */}
                     <div className="flex flex-wrap gap-2 mb-6">
@@ -128,15 +131,14 @@ const ServicesSection = () => {
                       ))}
                     </div>
 
-                    <Link
-                      to={`/services/${service.id}`}
-                      className="inline-flex items-center text-primary font-semibold group-hover:gap-3 gap-2 transition-all"
+                    <div
+                      className="inline-flex items-center text-primary font-semibold group-hover:gap-3 gap-2 transition-all mt-auto"
                     >
                       Learn More
                       <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </ScrollReveal>
             );
           })}
