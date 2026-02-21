@@ -14,6 +14,7 @@ const Footer = ({ isDark }: FooterProps) => {
     { name: "App Development", href: "/services/app-development" },
     { name: "Software Development", href: "/services/software-development" },
     { name: "Digital Marketing", href: "/services/marketing" },
+    { name: "IoT and AI Integration", href: "/services/iot-ai" },
   ];
 
   const products = [
@@ -35,7 +36,7 @@ const Footer = ({ isDark }: FooterProps) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="space-y-6">
-            <Link to="/">
+            <Link to="/#hero">
               <img src={isDark ? ophexDark : ophexLight} alt="OPHEX Software" className="h-12 w-auto" />
             </Link>
             <p className="text-muted-foreground leading-relaxed">

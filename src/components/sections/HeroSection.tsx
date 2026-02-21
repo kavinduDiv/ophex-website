@@ -6,10 +6,10 @@ import ParticleBackground from "@/components/animations/ParticleBackground";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Particle Background */}
       <ParticleBackground />
-      
+
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -26,8 +26,8 @@ const HeroSection = () => {
       </div>
 
       {/* Gradient Overlay Animation */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent animate-gradient-shift" 
-        style={{ backgroundSize: "200% 200%" }} 
+      <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent animate-gradient-shift"
+        style={{ backgroundSize: "200% 200%" }}
       />
 
       {/* Content */}
@@ -45,7 +45,7 @@ const HeroSection = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-10 animate-slide-up stagger-2">
-            We craft innovative software solutions, stunning websites, and powerful 
+            We craft innovative software solutions, stunning websites, and powerful
             applications that drive business growth and deliver exceptional user experiences.
           </p>
 

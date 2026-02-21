@@ -7,21 +7,21 @@ import { Textarea } from "@/components/ui/textarea";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 
 const ContactSection = () => {
-//   const { toast } = useToast();
+  //   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    
+
     // toast({
     //   title: "Message Sent!",
     //   description: "We'll get back to you as soon as possible.",
     // });
-    
+
     setIsSubmitting(false);
     (e.target as HTMLFormElement).reset();
   };
@@ -67,7 +67,7 @@ const ContactSection = () => {
             Let's Build Something <span className="text-gradient">Amazing</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Ready to start your project? Get in touch and let's discuss how we 
+            Ready to start your project? Get in touch and let's discuss how we
             can help transform your ideas into reality.
           </p>
         </ScrollReveal>
@@ -79,8 +79,8 @@ const ContactSection = () => {
               <div>
                 <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
                 <p className="text-muted-foreground mb-8">
-                  We'd love to hear from you. Whether you have a question about our 
-                  services, products, or anything else, our team is ready to answer 
+                  We'd love to hear from you. Whether you have a question about our
+                  services, products, or anything else, our team is ready to answer
                   all your questions.
                 </p>
               </div>
@@ -100,9 +100,19 @@ const ContactSection = () => {
                         </div>
                         <div>
                           <h4 className="font-semibold mb-1">{item.title}</h4>
-                          <p className="text-muted-foreground whitespace-pre-line">
-                            {item.content}
-                          </p>
+                          {item.title === "Phone" ? (
+                            <a href={`tel:${item.content.replace(/[^\d+]/g, "")}`} className="block text-muted-foreground whitespace-pre-line hover:text-primary transition-colors">
+                              {item.content}
+                            </a>
+                          ) : item.title === "Email" ? (
+                            <a href={`mailto:${item.content}`} className="block text-muted-foreground whitespace-pre-line hover:text-primary transition-colors">
+                              {item.content}
+                            </a>
+                          ) : (
+                            <p className="text-muted-foreground whitespace-pre-line">
+                              {item.content}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </ScrollReveal>
