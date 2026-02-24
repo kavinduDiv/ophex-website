@@ -3,6 +3,36 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 import ParticleBackground from "@/components/animations/ParticleBackground";
+import { useEffect, useRef } from "react";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+
+const AnimatedNumber = ({ value }: { value: string }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "0px" });
+
+  const numMatch = value.match(/(\d+)(.*)/);
+  const target = numMatch ? parseInt(numMatch[1], 10) : 0;
+  const suffix = numMatch ? numMatch[2] : "";
+
+  const motionValue = useMotionValue(0);
+  const rounded = useTransform(motionValue, (latest) => Math.round(latest) + suffix);
+
+  useEffect(() => {
+    if (isInView) {
+      const controls = animate(motionValue, target, {
+        duration: 3,
+        ease: "easeOut"
+      });
+      return controls.stop;
+    }
+  }, [isInView, motionValue, target]);
+
+  if (!numMatch) {
+    return <span>{value}</span>;
+  }
+
+  return <motion.span ref={ref}>{rounded}</motion.span>;
+};
 
 const HeroSection = () => {
   return (
@@ -74,7 +104,7 @@ const HeroSection = () => {
             ].map((stat, index) => (
               <div key={stat.label} className={`text-center stagger-${index + 4}`}>
                 <div className="text-3xl md:text-4xl font-bold text-primary mb-2 animate-pulse-slow" style={{ animationDelay: `${index * 0.2}s` }}>
-                  {stat.value}
+                  <AnimatedNumber value={stat.value} />
                 </div>
                 <div className="text-primary-foreground/60 text-sm">{stat.label}</div>
               </div>

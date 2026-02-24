@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight } from "lucide-react";
 import ophexDark from "@/assets/ophex_dark.png";
 import ophexLight from "@/assets/ophex_light.png";
 
@@ -44,16 +44,16 @@ const Footer = ({ isDark }: FooterProps) => {
               software that drives business growth.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://www.facebook.com/share/18gXhdbkVd/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://www.instagram.com/ophex_software?igsh=YzljYTk1ODg3Zg==" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
@@ -67,9 +67,10 @@ const Footer = ({ isDark }: FooterProps) => {
                 <li key={item.name}>
                   <Link
                     to={item.href}
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="group flex items-center text-muted-foreground hover:text-primary transition-colors duration-300"
                   >
-                    {item.name}
+                    <ArrowRight className="h-4 w-0 opacity-0 group-hover:w-4 group-hover:opacity-100 transition-all duration-300 mr-0 group-hover:mr-2" />
+                    <span className="transition-transform duration-300">{item.name}</span>
                   </Link>
                 </li>
               ))}
@@ -84,9 +85,10 @@ const Footer = ({ isDark }: FooterProps) => {
                 <li key={item.name}>
                   <Link
                     to={item.href}
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="group flex items-center text-muted-foreground hover:text-primary transition-colors duration-300"
                   >
-                    {item.name}
+                    <ArrowRight className="h-4 w-0 opacity-0 group-hover:w-4 group-hover:opacity-100 transition-all duration-300 mr-0 group-hover:mr-2" />
+                    <span className="transition-transform duration-300">{item.name}</span>
                   </Link>
                 </li>
               ))}
@@ -97,9 +99,10 @@ const Footer = ({ isDark }: FooterProps) => {
                 <li key={item.name}>
                   <Link
                     to={item.href}
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="group flex items-center text-muted-foreground hover:text-primary transition-colors duration-300"
                   >
-                    {item.name}
+                    <ArrowRight className="h-4 w-0 opacity-0 group-hover:w-4 group-hover:opacity-100 transition-all duration-300 mr-0 group-hover:mr-2" />
+                    <span className="transition-transform duration-300">{item.name}</span>
                   </Link>
                 </li>
               ))}
@@ -118,15 +121,15 @@ const Footer = ({ isDark }: FooterProps) => {
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors">
-                  +1 (234) 567-890
+                <a href="tel:+94788834962" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
+                  <Phone className="h-5 w-5 text-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>+94 78 883 4962</span>
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                <a href="mailto:info@orhex.com" className="text-muted-foreground hover:text-primary transition-colors">
-                  info@orhex.com
+                <a href="mailto:ophexsoftwaresolutions@gmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
+                  <Mail className="h-5 w-5 text-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>ophexsoftwaresolutions@gmail.com</span>
                 </a>
               </li>
             </ul>

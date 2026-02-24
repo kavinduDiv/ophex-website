@@ -14,13 +14,23 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const subject = formData.get("subject") as string;
+    const message = formData.get("message") as string;
 
-    // toast({
-    //   title: "Message Sent!",
-    //   description: "We'll get back to you as soon as possible.",
-    // });
+    // Short loading state for UI feedback
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    // Construct Mailto Link
+    const mailtoSubject = encodeURIComponent(`Website Inquiry: ${subject || "New Message"}`);
+    const mailtoBody = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\n\nMessage:\n${message}`
+    );
+
+    window.location.href = `mailto:ophexsoftwaresolutions@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
 
     setIsSubmitting(false);
     (e.target as HTMLFormElement).reset();
@@ -35,12 +45,12 @@ const ContactSection = () => {
     {
       icon: Phone,
       title: "Phone",
-      content: "+1 (234) 567-890",
+      content: "+94 78 883 4962",
     },
     {
       icon: Mail,
       title: "Email",
-      content: "info@orhex.com",
+      content: "ophexsoftwaresolutions@gmail.com",
     },
     {
       icon: Clock,
@@ -95,9 +105,19 @@ const ContactSection = () => {
                       delay={200 + index * 100}
                     >
                       <div className="flex items-start gap-4 group">
-                        <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 group-hover:shadow-glow transition-all duration-300">
-                          <Icon className="h-5 w-5 text-primary" />
-                        </div>
+                        {item.title === "Phone" ? (
+                          <a href={`tel:${item.content.replace(/[^\d+]/g, "")}`} className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 hover:bg-primary/20 hover:shadow-glow transition-all duration-300">
+                            <Icon className="h-5 w-5 text-primary" />
+                          </a>
+                        ) : item.title === "Email" ? (
+                          <a href={`mailto:${item.content}`} className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 hover:bg-primary/20 hover:shadow-glow transition-all duration-300">
+                            <Icon className="h-5 w-5 text-primary" />
+                          </a>
+                        ) : (
+                          <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 group-hover:shadow-glow transition-all duration-300">
+                            <Icon className="h-5 w-5 text-primary" />
+                          </div>
+                        )}
                         <div>
                           <h4 className="font-semibold mb-1">{item.title}</h4>
                           {item.title === "Phone" ? (

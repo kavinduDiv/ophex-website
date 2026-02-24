@@ -106,18 +106,6 @@ const PageLoader = () => {
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
         >
-          {/* Futuristic spinning rings around logo */}
-          <motion.div
-            className="absolute -inset-6 rounded-full border-2 border-orange-500/20 border-t-orange-500 border-b-orange-500"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.div
-            className="absolute -inset-8 rounded-full border border-dashed border-orange-500/40"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          />
-
           <div className="relative h-28 w-64 flex items-center justify-center z-10 drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]">
             {/* Base Dark Logo */}
             <img
