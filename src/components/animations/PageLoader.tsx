@@ -24,6 +24,7 @@ const circuitPaths = [
 const PageLoader = () => {
   const [loading, setLoading] = useState(() => !sessionStorage.getItem("hasLoadedOnce"));
   const [fadeOut, setFadeOut] = useState(false);
+  const [logoLoaded, setLogoLoaded] = useState(false);
 
   useEffect(() => {
     // If not loading on initial render, skip setting timers entirely
@@ -103,20 +104,21 @@ const PageLoader = () => {
         <motion.div
           className="relative"
           initial={{ scale: 0.8, opacity: 0, y: 20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
+          animate={logoLoaded ? { scale: 1, opacity: 1, y: 0 } : { scale: 0.8, opacity: 0, y: 20 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
         >
           <div className="relative h-28 w-64 flex items-center justify-center z-10 drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]">
             {/* Base Dark Logo */}
             <img
               src={ophexDark}
-              alt="ORHEX Software Dark"
+              alt=""
+              onLoad={() => setLogoLoaded(true)}
               className="absolute inset-0 w-full h-full object-contain"
             />
             {/* Alternating Light Logo for "Brightening" Effect */}
             <motion.img
               src={ophexLight}
-              alt="ORHEX Software Light"
+              alt=""
               className="absolute inset-0 w-full h-full object-contain"
               animate={{ opacity: [0, 1, 0] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}

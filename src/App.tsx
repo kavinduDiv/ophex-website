@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import ServiceDetail from "./pages/ServiceDetail";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ const App = () => (
     <TooltipProvider>
       {/* <Toaster /> */}
       <Sonner />
+      <WhatsAppButton />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
