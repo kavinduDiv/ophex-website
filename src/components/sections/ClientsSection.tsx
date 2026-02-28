@@ -3,17 +3,16 @@ import momoKidsStore from "@/assets/OPHEX-Clients/momo-kids-store.png";
 import monsoonTailors from "@/assets/OPHEX-Clients/monsoon-tailors.png";
 import rasoja from "@/assets/OPHEX-Clients/rasoja.png";
 
-const clients = [
-  { name: "Momo Kids Store", image: momoKidsStore },
-  { name: "Monsoon Tailors", image: monsoonTailors },
-  { name: "Rasoja", image: rasoja },
-  // Duplicate for smoother marquee looping since there are only 3 distinct clients
+const baseClients = [
   { name: "Momo Kids Store", image: momoKidsStore },
   { name: "Monsoon Tailors", image: monsoonTailors },
   { name: "Rasoja", image: rasoja },
 ];
 
 const ClientsSection = () => {
+  // Duplicate enough times to ensure smooth infinite scrolling without sudden resets
+  const duplicatedClients = Array(8).fill(baseClients).flat();
+
   return (
     <section className="py-16 bg-secondary/30 overflow-hidden relative">
       {/* Background Animation */}
@@ -34,37 +33,33 @@ const ClientsSection = () => {
       </ScrollReveal>
 
       {/* Infinite Scroll Container */}
-      <div className="relative">
-        {/* Gradient Fade Edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-secondary/30 to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-secondary/30 to-transparent z-10" />
-
-        <div className="flex animate-marquee py-8">
-          {[...clients, ...clients].map((client, index) => (
+      <div
+        className="relative overflow-hidden py-8"
+        style={{
+          maskImage: "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
+          WebkitMaskImage: "-webkit-linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)"
+        }}
+      >
+        <div className="flex animate-marquee w-max">
+          {duplicatedClients.map((client, index) => (
             <div
               key={`${client.name}-${index}`}
-              className="group flex-shrink-0 mx-8 flex flex-col items-center justify-center cursor-pointer"
+              className="group flex-shrink-0 mx-20 flex flex-col items-center justify-center relative w-32 h-32"
             >
-              <div
-                className="w-32 h-32 rounded-full bg-card/50 flex items-center justify-center p-4 border border-border/50 
+              <img
+                src={client.image}
+                alt={client.name}
+                className="w-32 h-32 object-contain cursor-pointer
+                           grayscale opacity-40 brightness-150 contrast-75 /* whitish ash effect */
                            transition-all duration-500 ease-in-out
-                           group-hover:border-orange-500/50 group-hover:bg-card
-                           hover:shadow-[0_0_20px_rgba(249,115,22,0.4)]
-                           active:scale-95"
-              >
-                <img
-                  src={client.image}
-                  alt={client.name}
-                  className="w-full h-full object-contain 
-                             grayscale opacity-60 brightness-150 contrast-75 /* whitish ash effect */
-                             transition-all duration-500 ease-in-out
-                             group-hover:grayscale-0 group-hover:opacity-100 group-hover:brightness-100 group-hover:contrast-100"
-                />
-              </div>
+                           group-hover:grayscale-0 group-hover:opacity-100 group-hover:brightness-100 group-hover:contrast-100
+                           group-hover:scale-125 group-hover:drop-shadow-[0_0_25px_rgba(249,115,22,0.8)]
+                           active:scale-110"
+              />
 
               {/* Company Name Reveal */}
               <span
-                className="mt-4 text-sm font-semibold text-primary opacity-0 translate-y-2 
+                className="absolute -bottom-8 text-sm font-semibold text-primary opacity-0 translate-y-2 pointer-events-none whitespace-nowrap
                            transition-all duration-500 ease-out
                            group-hover:opacity-100 group-hover:translate-y-0"
               >
