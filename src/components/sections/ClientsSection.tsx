@@ -1,16 +1,16 @@
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import momoKidsStore from "@/assets/OPHEX-Clients/momo-kids-store.png";
+import monsoonTailors from "@/assets/OPHEX-Clients/monsoon-tailors.png";
+import rasoja from "@/assets/OPHEX-Clients/rasoja.png";
 
 const clients = [
-  { name: "TechCorp", initials: "TC" },
-  { name: "Innovate Inc", initials: "II" },
-  { name: "DataFlow", initials: "DF" },
-  { name: "CloudBase", initials: "CB" },
-  { name: "NetSolutions", initials: "NS" },
-  { name: "DigitalEdge", initials: "DE" },
-  { name: "SmartTech", initials: "ST" },
-  { name: "FutureLabs", initials: "FL" },
-  { name: "CodeMasters", initials: "CM" },
-  { name: "WebPro", initials: "WP" },
+  { name: "Momo Kids Store", image: momoKidsStore },
+  { name: "Monsoon Tailors", image: monsoonTailors },
+  { name: "Rasoja", image: rasoja },
+  // Duplicate for smoother marquee looping since there are only 3 distinct clients
+  { name: "Momo Kids Store", image: momoKidsStore },
+  { name: "Monsoon Tailors", image: monsoonTailors },
+  { name: "Rasoja", image: rasoja },
 ];
 
 const ClientsSection = () => {
@@ -38,22 +38,38 @@ const ClientsSection = () => {
         {/* Gradient Fade Edges */}
         <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-secondary/30 to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-secondary/30 to-transparent z-10" />
-        
-        <div className="flex animate-marquee">
-          {/* First set of logos */}
+
+        <div className="flex animate-marquee py-8">
           {[...clients, ...clients].map((client, index) => (
             <div
               key={`${client.name}-${index}`}
-              className="flex-shrink-0 mx-8 flex items-center justify-center"
+              className="group flex-shrink-0 mx-8 flex flex-col items-center justify-center cursor-pointer"
             >
-              <div className="w-40 h-20 bg-card rounded-xl shadow-card flex items-center justify-center border border-border/50 hover:border-primary/50 hover:shadow-glow transition-all duration-300 hover-scale">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <span className="text-primary font-bold text-sm">{client.initials}</span>
-                  </div>
-                  <span className="font-semibold text-sm text-foreground/80">{client.name}</span>
-                </div>
+              <div
+                className="w-32 h-32 rounded-full bg-card/50 flex items-center justify-center p-4 border border-border/50 
+                           transition-all duration-500 ease-in-out
+                           group-hover:border-orange-500/50 group-hover:bg-card
+                           hover:shadow-[0_0_20px_rgba(249,115,22,0.4)]
+                           active:scale-95"
+              >
+                <img
+                  src={client.image}
+                  alt={client.name}
+                  className="w-full h-full object-contain 
+                             grayscale opacity-60 brightness-150 contrast-75 /* whitish ash effect */
+                             transition-all duration-500 ease-in-out
+                             group-hover:grayscale-0 group-hover:opacity-100 group-hover:brightness-100 group-hover:contrast-100"
+                />
               </div>
+
+              {/* Company Name Reveal */}
+              <span
+                className="mt-4 text-sm font-semibold text-primary opacity-0 translate-y-2 
+                           transition-all duration-500 ease-out
+                           group-hover:opacity-100 group-hover:translate-y-0"
+              >
+                {client.name}
+              </span>
             </div>
           ))}
         </div>
