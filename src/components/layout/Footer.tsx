@@ -25,7 +25,7 @@ const Footer = ({ isDark }: FooterProps) => {
 
   const company = [
     { name: "About Us", href: "/#about" },
-    { name: "Portfolio", href: "/#portfolio" },
+    // { name: "Portfolio", href: "/#portfolio" },
     { name: "Technologies", href: "/#technologies" },
     { name: "Contact", href: "/#contact" },
   ];

@@ -27,7 +27,7 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
     { name: "Home", href: "/#hero" },
     { name: "Services", href: "/#services" },
     { name: "Products", href: "/#products" },
-    { name: "Portfolio", href: "/#portfolio" },
+    // { name: "Portfolio", href: "/#portfolio" },
     { name: "Contact", href: "/#contact" },
   ];
 
@@ -78,14 +78,15 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
 
           {/* Actions */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button
+            {/* Dark / Light Mode Toggle */}
+            {/* <Button
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
               className="rounded-full"
             >
               {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
+            </Button> */}
             <Button variant="default" asChild>
               <Link to="/#contact">Get Started</Link>
             </Button>

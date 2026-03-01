@@ -87,7 +87,8 @@ const HeroSection = () => {
               </Link>
             </Button>
             <Button variant="heroOutline" size="lg" asChild className="hover-lift">
-              <Link to="/#portfolio">
+              {/* <Link to="/#portfolio"> */}
+              <Link to="/#products">
                 <Play className="mr-2 h-5 w-5" />
                 View Our Work
               </Link>

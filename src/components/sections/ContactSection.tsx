@@ -1,39 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Send, MapPin, Phone, Mail, Clock, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 // import { useToast } from "@/hooks/use-toast";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import emailjs from "@emailjs/browser"; // make sure to install @emailjs/browser
 
 const ContactSection = () => {
   //   const { toast } = useToast();
+  emailjs.init("Oq4cH5jzNbnOYpSzx"); 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // initialize EmailJS (replace with your public key/user ID)
+  // you can also call emailjs.init in a higher-level component or in index.tsx
+  // useEffect(() => {
+  // }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const phone = formData.get("phone") as string;
-    const subject = formData.get("subject") as string;
-    const message = formData.get("message") as string;
+    // service and template IDs should match your EmailJS dashboard
+    const serviceID = "service_w2gdb2a";
+    const templateID = "template_hfoe6nv";
 
-    // Short loading state for UI feedback
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    // Construct Mailto Link
-    const mailtoSubject = encodeURIComponent(`Website Inquiry: ${subject || "New Message"}`);
-    const mailtoBody = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\n\nMessage:\n${message}`
-    );
-
-    window.location.href = `mailto:ophexsoftwaresolutions@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
-
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
+    try {
+      await emailjs.sendForm(serviceID, templateID, e.currentTarget as HTMLFormElement);
+      // optional: show a toast/alert on success
+      alert("Sent!");
+    } catch (err) {
+      console.error("EmailJS error", err);
+      alert(JSON.stringify(err));
+    } finally {
+      setIsSubmitting(false);
+      (e.target as HTMLFormElement).reset();
+    }
   };
 
   const contactInfo = [
@@ -145,15 +147,15 @@ const ContactSection = () => {
           {/* Contact Form */}
           <ScrollReveal variant="fade-left" delay={200}>
             <div className="bg-card rounded-2xl p-8 shadow-card border border-border hover:shadow-card-hover transition-shadow duration-300">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form id="contact-form" onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="group">
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
                       Full Name
                     </label>
                     <Input
-                      id="name"
-                      name="name"
+                      id="client_name"
+                      name="client_name"
                       placeholder="John Doe"
                       required
                       className="h-12 transition-all duration-300 focus:shadow-glow"
@@ -164,8 +166,8 @@ const ContactSection = () => {
                       Email Address
                     </label>
                     <Input
-                      id="email"
-                      name="email"
+                      id="client_email"
+                      name="client_email"
                       type="email"
                       placeholder="john@example.com"
                       required
@@ -179,10 +181,10 @@ const ContactSection = () => {
                     Phone Number
                   </label>
                   <Input
-                    id="phone"
-                    name="phone"
+                    id="client_contact"
+                    name="client_contact"
                     type="tel"
-                    placeholder="+1 (234) 567-890"
+                    placeholder="+94 7X XXX XXXX"
                     className="h-12 transition-all duration-300 focus:shadow-glow"
                   />
                 </div>
@@ -192,8 +194,8 @@ const ContactSection = () => {
                     Subject
                   </label>
                   <Input
-                    id="subject"
-                    name="subject"
+                    id="client_subject"
+                    name="client_subject"
                     placeholder="How can we help?"
                     required
                     className="h-12 transition-all duration-300 focus:shadow-glow"
@@ -205,8 +207,8 @@ const ContactSection = () => {
                     Message
                   </label>
                   <Textarea
-                    id="message"
-                    name="message"
+                    id="client_message"
+                    name="client_message"
                     placeholder="Tell us about your project..."
                     rows={5}
                     required
