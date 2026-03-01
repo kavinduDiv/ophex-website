@@ -40,7 +40,7 @@ const ContactSection = () => {
     {
       icon: MapPin,
       title: "Our Office",
-      content: "123 Tech Park, Silicon Valley,\nCA 94000, USA",
+      content: "Colombo road, Gampaha,\nSri Lanka",
     },
     {
       icon: Phone,

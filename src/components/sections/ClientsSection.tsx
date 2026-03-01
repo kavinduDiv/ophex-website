@@ -1,4 +1,5 @@
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import { useEffect, useRef } from "react";
 const logoModules = import.meta.glob<{ default: string }>('@/assets/OPHEX-Clients/*.{png,jpg,jpeg,svg,webp}', { eager: true });
 
 const formatCompanyName = (fileName: string) => {
@@ -28,6 +29,40 @@ const baseClients = Object.entries(logoModules).map(([path, module]) => {
 const ClientsSection = () => {
   // Duplicate enough times to ensure smooth infinite scrolling without sudden resets
   const duplicatedClients = Array(8).fill(baseClients).flat();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const checkFocus = () => {
+      if (!containerRef.current) return;
+
+      const items = containerRef.current.querySelectorAll('.client-logo-wrapper');
+      const viewportCenter = window.innerWidth / 2;
+      const focusZoneRadius = 120; // Highlight items within this many pixels of the center
+
+      items.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        // Skip items that are completely off-screen to save calculations
+        if (rect.right < 0 || rect.left > window.innerWidth) {
+          item.removeAttribute('data-focused');
+          return;
+        }
+
+        const itemCenter = rect.left + rect.width / 2;
+        if (Math.abs(itemCenter - viewportCenter) < focusZoneRadius) {
+          item.setAttribute('data-focused', 'true');
+        } else {
+          item.removeAttribute('data-focused');
+        }
+      });
+
+      animationFrameId = requestAnimationFrame(checkFocus);
+    };
+
+    checkFocus();
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   return (
     <section className="py-16 bg-secondary/30 overflow-hidden relative">
@@ -50,6 +85,7 @@ const ClientsSection = () => {
 
       {/* Infinite Scroll Container */}
       <div
+        ref={containerRef}
         className="relative overflow-hidden py-8"
         style={{
           maskImage: "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
@@ -60,16 +96,17 @@ const ClientsSection = () => {
           {duplicatedClients.map((client, index) => (
             <div
               key={`${client.name}-${index}`}
-              className="group flex-shrink-0 mx-20 flex flex-col items-center justify-center relative w-32 h-32"
+              className="client-logo-wrapper group flex-shrink-0 mx-20 flex flex-col items-center justify-center relative w-32 h-32"
             >
               <img
                 src={client.image}
                 alt={client.name}
                 className={`w-32 h-32 object-contain cursor-pointer transition-all duration-500 ease-in-out
-                           group-hover:scale-125 group-hover:drop-shadow-[0_0_25px_rgba(249,115,22,0.8)]
+                           group-hover:scale-125 group-data-[focused=true]:scale-125
+                           group-hover:drop-shadow-[0_0_25px_rgba(249,115,22,0.8)] group-data-[focused=true]:drop-shadow-[0_0_25px_rgba(249,115,22,0.8)]
                            active:scale-110 ${client.hasBg
-                    ? "grayscale opacity-40 brightness-150 contrast-75 group-hover:grayscale-0 group-hover:opacity-100 group-hover:brightness-100 group-hover:contrast-100"
-                    : "brightness-0 invert opacity-60 group-hover:brightness-100 group-hover:invert-0 group-hover:opacity-100"
+                    ? "grayscale opacity-40 brightness-150 contrast-75 group-hover:grayscale-0 group-data-[focused=true]:grayscale-0 group-hover:opacity-100 group-data-[focused=true]:opacity-100 group-hover:brightness-100 group-data-[focused=true]:brightness-100 group-hover:contrast-100 group-data-[focused=true]:contrast-100"
+                    : "brightness-0 invert opacity-60 group-hover:brightness-100 group-data-[focused=true]:brightness-100 group-hover:invert-0 group-data-[focused=true]:invert-0 group-hover:opacity-100 group-data-[focused=true]:opacity-100"
                   }`}
               />
 
@@ -77,7 +114,8 @@ const ClientsSection = () => {
               <span
                 className="absolute -bottom-8 text-sm font-semibold text-primary opacity-0 translate-y-2 pointer-events-none whitespace-nowrap
                            transition-all duration-500 ease-out
-                           group-hover:opacity-100 group-hover:translate-y-0"
+                           group-hover:opacity-100 group-data-[focused=true]:opacity-100 
+                           group-hover:translate-y-0 group-data-[focused=true]:translate-y-0"
               >
                 {client.name}
               </span>
