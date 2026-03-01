@@ -1,13 +1,29 @@
 import ScrollReveal from "@/components/animations/ScrollReveal";
-import momoKidsStore from "@/assets/OPHEX-Clients/momo-kids-store.png";
-import monsoonTailors from "@/assets/OPHEX-Clients/monsoon-tailors.png";
-import rasoja from "@/assets/OPHEX-Clients/rasoja.png";
+const logoModules = import.meta.glob<{ default: string }>('@/assets/OPHEX-Clients/*.{png,jpg,jpeg,svg,webp}', { eager: true });
 
-const baseClients = [
-  { name: "Momo Kids Store", image: momoKidsStore },
-  { name: "Monsoon Tailors", image: monsoonTailors },
-  { name: "Rasoja", image: rasoja },
-];
+const formatCompanyName = (fileName: string) => {
+  // Strip out the -bg indicator before parsing the name
+  const cleanName = fileName.replace(/[-_]bg$/i, '');
+  return cleanName
+    .split(/[-_]+/)
+    .map(word => {
+      // Handle special single letters or lowercase cases
+      if (word.toLowerCase() === 's') return 'S';
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    })
+    .join(' ');
+};
+
+const baseClients = Object.entries(logoModules).map(([path, module]) => {
+  const fileName = path.split('/').pop()?.split('.')[0] || "Unknown Client";
+  const hasBg = /[-_]bg$/i.test(fileName);
+
+  return {
+    name: formatCompanyName(fileName),
+    image: module.default,
+    hasBg
+  };
+});
 
 const ClientsSection = () => {
   // Duplicate enough times to ensure smooth infinite scrolling without sudden resets
@@ -49,12 +65,12 @@ const ClientsSection = () => {
               <img
                 src={client.image}
                 alt={client.name}
-                className="w-32 h-32 object-contain cursor-pointer
-                           grayscale opacity-40 brightness-150 contrast-75 /* whitish ash effect */
-                           transition-all duration-500 ease-in-out
-                           group-hover:grayscale-0 group-hover:opacity-100 group-hover:brightness-100 group-hover:contrast-100
+                className={`w-32 h-32 object-contain cursor-pointer transition-all duration-500 ease-in-out
                            group-hover:scale-125 group-hover:drop-shadow-[0_0_25px_rgba(249,115,22,0.8)]
-                           active:scale-110"
+                           active:scale-110 ${client.hasBg
+                    ? "grayscale opacity-40 brightness-150 contrast-75 group-hover:grayscale-0 group-hover:opacity-100 group-hover:brightness-100 group-hover:contrast-100"
+                    : "brightness-0 invert opacity-60 group-hover:brightness-100 group-hover:invert-0 group-hover:opacity-100"
+                  }`}
               />
 
               {/* Company Name Reveal */}
