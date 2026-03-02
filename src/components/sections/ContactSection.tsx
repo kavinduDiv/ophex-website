@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Send, MapPin, Phone, Mail, Clock, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ import emailjs from "@emailjs/browser"; // make sure to install @emailjs/browser
 
 const ContactSection = () => {
   //   const { toast } = useToast();
-  emailjs.init("Oq4cH5jzNbnOYpSzx"); 
+  emailjs.init("Oq4cH5jzNbnOYpSzx");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // initialize EmailJS (replace with your public key/user ID)

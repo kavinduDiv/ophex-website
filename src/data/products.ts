@@ -1,7 +1,10 @@
-import { BookOpen, Wrench, Package } from "lucide-react";
+import { BookOpen, Wrench, Package, Users, ClipboardList, Receipt } from "lucide-react";
 import productLms from "@/assets/product-lms.jpg";
 import productService from "@/assets/product-service.jpg";
 import productStock from "@/assets/product-stock.jpg";
+import productHr from "@/assets/poduct-hr.jpg";
+import productCrm from "@/assets/product-crm.jpg";
+import productBill from "@/assets/product-bill.jpg";
 
 export const products = [
     {
@@ -85,6 +88,87 @@ export const products = [
             "Streamline procurement processes",
             "Gain visibility across multiple locations",
             "Improve order fulfillment accuracy",
+        ]
+    },
+    {
+        id: "hr-management",
+        title: "Ophex HR",
+        subtitle: "Complete Human Resource Management System",
+        description: "Streamline your workforce operations, from recruitment and onboarding to payroll, attendance tracking, and performance evaluations.",
+        fullDescription: `
+      Ophex HR is an all-in-one Human Resource Management System designed to simplify complex HR processes and foster a productive workplace culture.
+      
+      Automate routine administrative tasks, effortlessly manage employee leave requests, track daily attendance, and ensure compliant payroll processing. Our system provides management with clear, actionable insights into workforce dynamics.
+    `,
+        icon: Users,
+        image: productHr,
+        features: [
+            "Employee Database & Profiles",
+            "Leave & Attendance Tracking",
+            "Automated Payroll Processing",
+            "Performance & Appraisal Management",
+            "Recruitment & Onboarding Workflows",
+            "Employee Self-Service Portal",
+        ],
+        benefits: [
+            "Minimize tedious HR paperwork and administration",
+            "Ensure accurate, timely payroll distribution",
+            "Boost employee satisfaction with transparent policies",
+            "Make data-driven hiring and promotion decisions",
+        ]
+    },
+    {
+        id: "crm-system",
+        title: "Ophex CRM",
+        subtitle: "Customer Relationship & Task Progress Tracking",
+        description: "Build stronger customer relationships and track internal task progress seamlessly through a unified, collaborative dashboard.",
+        fullDescription: `
+      Ophex CRM goes beyond traditional customer management by tightly integrating task tracking directly alongside your client profiles.
+      
+      Keep your sales, marketing, and support teams perfectly aligned. Track every customer interaction, monitor active deal pipelines, assign internal follow-up tasks, and visualize project milestones all within a single command center.
+    `,
+        icon: ClipboardList,
+        image: productCrm,
+        features: [
+            "Centralized Client & Lead Database",
+            "Visual Task & Project Boards",
+            "Interaction History & Logging",
+            "Sales Pipeline Tracking",
+            "Automated Follow-up Reminders",
+            "Team Collaboration Chat Tools",
+        ],
+        benefits: [
+            "Never miss a potential sales follow-up",
+            "Keep all team members aligned on active tasks",
+            "Improve customer retention with personalized service",
+            "Easily identify bottlenecks in sales workflows",
+        ]
+    },
+    {
+        id: "bila-potha",
+        title: "Bila Potha",
+        subtitle: "Mobile Tax Invoice Management App",
+        description: "A specialized mobile application enabling suppliers and field salesmen to issue, share, and manage formal tax invoices with just a few clicks.",
+        fullDescription: `
+      Bila Potha is a purpose-built mobile application designed specifically to empower on-the-go suppliers, field salesmen, and distribution fleets.
+      
+      Eliminate the hassle of manual receipt books. Issue perfectly formatted tax invoices directly from your smartphone, instantly share them with clients via WhatsApp or Email, and automatically sync all billing data back to the company's central backend.
+    `,
+        icon: Receipt,
+        image: productBill,
+        features: [
+            "Instant Mobile Tax Invoice Generation",
+            "One-Click WhatsApp/Email Sharing",
+            "Field Salesman Tracking Dashboard",
+            "Supplier & Client Record Management",
+            "Offline Mode with Auto-Sync",
+            "Customizable Invoice Templates",
+        ],
+        benefits: [
+            "Drastically speed up the field billing process",
+            "Eliminate errors in physical invoice creation",
+            "Provide professional, digital receipts to clients instantly",
+            "Maintain perfectly synchronized financial records company-wide",
         ]
     },
 ];

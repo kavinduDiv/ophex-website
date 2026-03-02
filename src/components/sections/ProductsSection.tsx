@@ -41,9 +41,9 @@ const ProductsSection = () => {
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover opacity-90 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/80 to-slate-900" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/10 to-slate-900 transition-colors duration-700 group-hover:via-transparent" />
                 </div>
 
                 {/* Decorative Glow */}

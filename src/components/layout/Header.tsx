@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ophexDark from "@/assets/ophex_dark.png";
 import ophexLight from "@/assets/ophex_light.png";
@@ -10,7 +10,7 @@ interface HeaderProps {
   toggleTheme: () => void;
 }
 
-const Header = ({ isDark, toggleTheme }: HeaderProps) => {
+const Header = ({ isDark }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();

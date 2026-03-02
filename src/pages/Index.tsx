@@ -6,7 +6,7 @@ import HeroSection from "@/components/sections/HeroSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import ProductsSection from "@/components/sections/ProductsSection";
 import ClientsSection from "@/components/sections/ClientsSection";
-import PortfolioSection from "@/components/sections/PortfolioSection";
+
 import TechnologiesSection from "@/components/sections/TechnologiesSection";
 import ContactSection from "@/components/sections/ContactSection";
 import PageLoader from "@/components/animations/PageLoader";
