@@ -94,14 +94,14 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center gap-2">
-            <Button
+            {/* <Button
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
               className="rounded-full"
             >
               {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
+            </Button> */}
             <Button
               variant="ghost"
               size="icon"
