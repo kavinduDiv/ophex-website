@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Globe, ShoppingCart, Smartphone, Code, Megaphone, Bot } from "lucide-react";
+import { ArrowRight, Globe, ShoppingCart, Smartphone, Code, Megaphone, Bot, MoveRight } from "lucide-react";
 import ScrollReveal from "@/components/animations/ScrollReveal";
-import serviceWeb from "@/assets/service-web.jpg";
-import serviceEcommerce from "@/assets/service-ecommerce.jpg";
-import serviceApp from "@/assets/service-app.jpg";
-import serviceSoftware from "@/assets/service-software.jpg";
-import serviceMarketing from "@/assets/service-marketing.jpg";
-import serviceIotAi from "@/assets/service-iot&ai.jpg";
+import serviceWeb from "@/assets/services/web-dev-Large.png";
+import serviceEcommerce from "@/assets/services/e-com-Large.png";
+import serviceApp from "@/assets/services/mobile-Large.png";
+import serviceSoftware from "@/assets/services/se-app-Large.png";
+import serviceMarketing from "@/assets/services/marketing-Large.png";
+import serviceIotAi from "@/assets/services/IoT-Large.png";
 
 const services = [
   {
@@ -93,16 +93,14 @@ const ServicesSection = () => {
                 variant="zoom-in"
                 delay={index * 100}
               >
-                <Link
-                  to={`/services/${service.id}`}
-                  className="group flex flex-col bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2 hover-glow h-full"
-                >
+
+                <div className="group flex flex-col bg-white/[0.03] backdrop-blur-[2px] backdrop-saturate-[180%] border border-white/15 border-t-white/20 border-l-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden shadow-card h-full hover:shadow-card-hover hover:-translate-y-1 duration-300">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img
                       src={service.image}
                       alt={service.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
                     <div className="absolute bottom-4 left-4">
@@ -130,15 +128,18 @@ const ServicesSection = () => {
                         </span>
                       ))}
                     </div>
-
-                    <div
-                      className="inline-flex items-center text-primary font-semibold group-hover:gap-3 gap-2 transition-all mt-auto"
+                    <Link
+                      to={`/services/${service.id}`}
                     >
-                      Learn More
-                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
+                      <div
+                        className="group/link inline-flex items-center text-primary font-semibold transition-all mt-auto"
+                      >
+                        Learn More &nbsp;
+                        <MoveRight size={22} className="mt-1 group-hover/link:ms-4 ease-out duration-100" />
+                      </div>
+                    </Link>
                   </div>
-                </Link>
+                </div>
               </ScrollReveal>
             );
           })}

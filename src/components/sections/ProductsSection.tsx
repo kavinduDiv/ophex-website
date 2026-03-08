@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MoveRight } from "lucide-react";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import { products } from "@/data/products";
 
@@ -33,64 +33,55 @@ const ProductsSection = () => {
             <ScrollReveal
               key={product.id}
               variant="fade-up"
-              className={`delay-${index * 100} group relative flex flex-col h-[550px] overflow-hidden rounded-2xl bg-slate-900 border border-slate-800 transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(249,115,22,0.25)] hover:border-orange-500/50`}
+              className={`delay-${index * 100} group relative flex flex-col h-[500px] overflow-hidden rounded-2xl bg-slate-900 border border-slate-800 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(249,115,22,0.25)] hover:border-orange-500/50`}
             >
-              <Link to={`/products/${product.id}`} className="flex flex-col h-full w-full">
-                {/* Image Background */}
-                <div className="absolute inset-0 h-1/2 overflow-hidden pointer-events-none">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-full object-cover opacity-90 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/10 to-slate-900 transition-colors duration-700 group-hover:via-transparent" />
+              {/* Image Background */}
+              <div className="absolute inset-0 h-1/2 overflow-hidden pointer-events-none rounded-t-2xl">
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="w-full object-cover opacity-70 transition-all duration-500 bg-center group-hover:opacity-90 overflow-hidden rounded-t-2xl"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent translate-y-0 via-slate-900/20 to-slate-900 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent translate-y-1 via-slate-900/20 to-slate-900 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent translate-y-2 via-slate-900/20 to-slate-900 transition-colors duration-500" />
+              </div>
+
+              {/* Decorative Glow */}
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-primary/20 rounded-full blur-3xl transition-opacity duration-500 opacity-0 group-hover:opacity-100 pointer-events-none"></div>
+
+              {/* Content Container */}
+              <div className="relative z-10 flex flex-col h-full p-6 pt-48">
+
+                {/* Badge Container */}
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full backdrop-blur-sm bg-primary/10 text-primary-foreground text-xs font-semibold uppercase tracking-wider mb-4 border border-primary/20 self-start transition-all duration-300 group-hover:bg-primary/20">
+                  <product.icon size={14} className="text-primary group-hover:scale-110 duration-300" />
+                  <span className="text-primary">{product.title}</span>
                 </div>
 
-                {/* Decorative Glow */}
-                <div className="absolute -top-12 -right-12 w-32 h-32 bg-primary/20 rounded-full blur-3xl transition-opacity duration-500 opacity-0 group-hover:opacity-100 pointer-events-none"></div>
+                {/* Subtitle / Catchphrase */}
+                <h3 className="text-2xl font-bold text-white mb-3 leading-tight transition-colors duration-300 group-hover:text-primary">
+                  {product.subtitle}
+                </h3>
 
-                {/* Content Container */}
-                <div className="relative z-10 flex flex-col h-full p-6 pt-48">
+                {/* Description */}
+                <p className="text-slate-400 text-sm mb-2 leading-relaxed flex-grow line-clamp-3">
+                  {product.description}
+                </p>
 
-                  {/* Badge Container */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-foreground text-xs font-semibold uppercase tracking-wider mb-4 border border-primary/20 self-start transition-colors duration-300 group-hover:bg-primary/20">
-                    <product.icon size={14} className="text-primary" />
-                    <span className="text-primary">{product.title}</span>
-                  </div>
+                {/* Action Button - Glides up seamlessly */}
+                <Link to={`/products/${product.id}`} className="flex flex-col">
 
-                  {/* Subtitle / Catchphrase */}
-                  <h3 className="text-2xl font-bold text-white mb-3 leading-tight group-hover:text-primary transition-colors duration-300">
-                    {product.subtitle}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-slate-400 text-sm mb-6 leading-relaxed flex-grow line-clamp-3">
-                    {product.description}
-                  </p>
-
-                  {/* Features Wrap */}
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {product.features.slice(0, 3).map((feat, i) => (
-                      <span key={i} className="px-2 py-1 bg-white/5 text-slate-300 text-[11px] font-medium rounded border border-white/10">
-                        {feat}
-                      </span>
-                    ))}
-                    {product.features.length > 3 && (
-                      <span className="px-2 py-1 bg-white/5 text-slate-400 text-[11px] font-medium rounded border border-white/10">
-                        +{product.features.length - 3} more
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Action Button - Glides up seamlessly */}
                   <div
-                    className="w-full inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium bg-slate-800 text-white gap-2 transition-all duration-300 border border-slate-700 group-hover:bg-primary group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(249,115,22,0.4)] mt-auto"
+                    className="group/pLink w-full inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2.5 text-sm font-medium bg-slate-800 text-white gap-2 transition-all duration-300 border border-slate-700 group-hover:bg-primary group-hover:border-primary group-hover:shadow-lg mt-auto"
                   >
                     Explore {product.title}
-                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    <MoveRight size={22} className="transition-transform duration-300 mt-1 group-hover/pLink:translate-x-2" />
                   </div>
-                </div>
-              </Link>
+                </Link>
+              
+              </div>
+
             </ScrollReveal>
           ))}
         </div>
