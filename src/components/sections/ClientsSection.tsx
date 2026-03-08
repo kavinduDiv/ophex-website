@@ -86,13 +86,13 @@ const ClientsSection = () => {
       {/* Infinite Scroll Container */}
       <div
         ref={containerRef}
-        className="relative overflow-hidden py-8"
+        className="relative overflow-hidden"
         style={{
           maskImage: "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
           WebkitMaskImage: "-webkit-linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)"
         }}
       >
-        <div className="flex animate-marquee w-max">
+        <div className="flex animate-marquee py-24 w-max items-center">
           {duplicatedClients.map((client, index) => (
             <div
               key={`${client.name}-${index}`}
@@ -101,7 +101,7 @@ const ClientsSection = () => {
               <img
                 src={client.image}
                 alt={client.name}
-                className={`w-32 h-32 object-contain cursor-pointer transition-all duration-500 ease-in-out
+                className={`h-26 object-cover cursor-pointer transition-all duration-500 ease-in-out
                            group-hover:scale-125 group-data-[focused=true]:scale-125
                            group-hover:drop-shadow-[0_0_25px_rgba(249,115,22,0.8)] group-data-[focused=true]:drop-shadow-[0_0_25px_rgba(249,115,22,0.8)]
                            active:scale-110 ${client.hasBg
@@ -112,7 +112,7 @@ const ClientsSection = () => {
 
               {/* Company Name Reveal */}
               <span
-                className="absolute -bottom-8 text-sm font-semibold text-primary opacity-0 translate-y-2 pointer-events-none whitespace-nowrap
+                className="absolute -bottom-16 text-sm font-semibold text-primary opacity-0 translate-y-2 pointer-events-none whitespace-nowrap
                            transition-all duration-500 ease-out
                            group-hover:opacity-100 group-data-[focused=true]:opacity-100 
                            group-hover:translate-y-0 group-data-[focused=true]:translate-y-0"
