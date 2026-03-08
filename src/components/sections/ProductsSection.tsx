@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import { products } from "@/data/products";
 

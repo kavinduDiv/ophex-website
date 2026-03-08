@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Globe, ShoppingCart, Smartphone, Code, Megaphone, Bot, MoveRight } from "lucide-react";
+import { Globe, ShoppingCart, Smartphone, Code, Megaphone, Bot, MoveRight } from "lucide-react";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import serviceWeb from "@/assets/services/web-dev-Large.png";
 import serviceEcommerce from "@/assets/services/e-com-Large.png";
