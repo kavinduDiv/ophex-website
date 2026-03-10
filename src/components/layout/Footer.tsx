@@ -22,6 +22,9 @@ const Footer = ({ isDark }: FooterProps) => {
     { name: "LMS Platform", href: "/products/lms" },
     { name: "Service Center", href: "/products/service-center" },
     { name: "Stock Management", href: "/products/stock-management" },
+    { name: "HR Management", href: "/products/hr-management" },
+    { name: "CRM System", href: "/products/crm-system" },
+    { name: "Bila Potha", href: "/products/bila-potha" },
   ];
 
   const company = [

@@ -2,8 +2,37 @@ import { Link } from "react-router-dom";
 import { ArrowRight, MoveRight } from "lucide-react";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import { products } from "@/data/products";
+import { useEffect, useRef, useState } from "react";
 
 const ProductsSection = () => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Restore scroll position from session storage
+  useEffect(() => {
+    const savedScrollPos = sessionStorage.getItem("productsScrollPos");
+    if (savedScrollPos && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = parseInt(savedScrollPos, 10);
+      updateScrollProgress();
+    }
+  }, []);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft } = scrollContainerRef.current;
+      sessionStorage.setItem("productsScrollPos", scrollLeft.toString());
+      updateScrollProgress();
+    }
+  };
+
+  const updateScrollProgress = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const progress = scrollLeft / (scrollWidth - clientWidth);
+      setScrollProgress(progress || 0); // fallback to 0 if NaN
+    }
+  };
+
   return (
     <section id="products" className="py-24 bg-background relative overflow-hidden">
       {/* Background Decor */}
@@ -27,13 +56,33 @@ const ProductsSection = () => {
           </p>
         </ScrollReveal>
 
-        {/* Responsive Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {/* Mobile Swipe Indicator (Only visible on Mobile when not scrolled to end) */}
+        <div className="md:hidden flex flex-col items-center mb-6 gap-2 opacity-70">
+          <div className="flex items-center gap-2 text-primary text-sm font-medium animate-pulse">
+            <MoveRight size={16} className="rotate-180" /> Swipe to explore <MoveRight size={16} />
+          </div>
+          <div className="w-48 h-1 bg-slate-800 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-orange-500 rounded-full transition-all duration-150 ease-out"
+              style={{ width: `${Math.max(10, scrollProgress * 100)}%` }} // Minimum 10% width
+            />
+          </div>
+        </div>
+
+        {/* Responsive Grid Layout / Mobile Carousel */}
+        {/* On Mobile: Flex row with horizontal scrolling and snap points. On Desktop: Standard Grid */}
+        <div
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
+          className="flex md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 md:pb-0 px-4 md:px-0 -mx-4 md:mx-auto"
+        >
           {products.map((product, index) => (
             <ScrollReveal
               key={product.id}
               variant="fade-up"
-              className={`delay-${index * 100} group relative flex flex-col h-[500px] overflow-hidden rounded-2xl bg-slate-900 border border-slate-800 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(249,115,22,0.25)] hover:border-orange-500/50`}
+              // Mobile: min-w-[85vw] forces cards to take up most of the screen, creating the carousel. snap-center aligns them. 
+              // Desktop: behaves as grid items
+              className={`delay-${index * 100} group relative flex flex-col h-[500px] min-w-[85vw] md:min-w-0 snap-center shrink-0 overflow-hidden rounded-2xl bg-slate-900 border border-slate-800 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(249,115,22,0.25)] hover:border-orange-500/50`}
             >
               {/* Image Background */}
               <div className="absolute inset-0 h-1/2 overflow-hidden pointer-events-none rounded-t-2xl">
@@ -79,7 +128,7 @@ const ProductsSection = () => {
                     <MoveRight size={22} className="transition-transform duration-300 mt-1 group-hover/pLink:translate-x-2" />
                   </div>
                 </Link>
-              
+
               </div>
 
             </ScrollReveal>
