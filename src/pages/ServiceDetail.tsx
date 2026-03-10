@@ -208,16 +208,16 @@ const ServiceDetail = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
           </div>
 
-          <div className="container mx-auto px-4 relative z-10">
-            <Link
-              to="/#services"
-              className="inline-flex items-center text-primary font-medium mb-8 hover:gap-3 gap-2 transition-all"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back to Services
-            </Link>
+          <div className="container mx-auto px-4 relative z-10 flex flex-col xl:flex-row items-center justify-between gap-12">
+            <div className="max-w-4xl w-full">
+              <Link
+                to="/#services"
+                className="inline-flex items-center text-primary font-medium mb-8 hover:gap-3 gap-2 transition-all"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Back to Services
+              </Link>
 
-            <div className="max-w-4xl">
               <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
                 <Icon className="h-8 w-8 text-primary" />
               </div>
@@ -233,6 +233,11 @@ const ServiceDetail = () => {
               <p className="text-lg text-muted-foreground">
                 {service.description}
               </p>
+            </div>
+
+            {/* Desktop Mascot Placement */}
+            <div className="hidden xl:block relative w-[600px] h-[600px] flex-shrink-0">
+              <ServicePenguin serviceId={serviceId || ""} isRelativeOnDesktop={true} />
             </div>
           </div>
         </section>
@@ -311,7 +316,10 @@ const ServiceDetail = () => {
         </section>
       </main>
 
-      <ServicePenguin serviceId={serviceId || ""} />
+      {/* Mobile/Tablet Mascot Placement */}
+      <div className="xl:hidden">
+        <ServicePenguin serviceId={serviceId || ""} />
+      </div>
       <Footer isDark={isDark} />
     </div>
   );
