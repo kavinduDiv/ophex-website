@@ -8,6 +8,8 @@ import ServiceDetail from "./pages/ServiceDetail";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
+import BackToTopButton from "./components/BackToTopButton";
+import Careers from "./pages/Careers";
 
 const queryClient = new QueryClient();
 
@@ -17,11 +19,13 @@ const App = () => (
       {/* <Toaster /> */}
       <Sonner />
       <WhatsAppButton />
+      <BackToTopButton />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/services/:serviceId" element={<ServiceDetail />} />
           <Route path="/products/:productId" element={<ProductDetail />} />
+          <Route path="/careers" element={<Careers />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

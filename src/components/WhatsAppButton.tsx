@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { contactData } from "@/data/contact";
 
 const WhatsAppButton = () => {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
         <motion.a
-            href="https://wa.me/94788834962"
+            href={`https://wa.me/${contactData.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-[100] group flex items-center justify-center p-3 rounded-full bg-white text-black transition-colors duration-300"

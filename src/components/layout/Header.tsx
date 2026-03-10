@@ -28,6 +28,7 @@ const Header = ({ isDark }: HeaderProps) => {
     { name: "Services", href: "/#services" },
     { name: "Products", href: "/#products" },
     // { name: "Portfolio", href: "/#portfolio" },
+    { name: "Careers", href: "/careers" },
     { name: "Contact", href: "/#contact" },
   ];
 

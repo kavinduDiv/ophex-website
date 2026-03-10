@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight } from "lucide-react";
 import ophexDark from "@/assets/ophex_dark.png";
 import ophexLight from "@/assets/ophex_light.png";
+import { contactData } from "@/data/contact";
 
 interface FooterProps {
   isDark: boolean;
@@ -27,6 +28,7 @@ const Footer = ({ isDark }: FooterProps) => {
     { name: "About Us", href: "/#about" },
     // { name: "Portfolio", href: "/#portfolio" },
     { name: "Technologies", href: "/#technologies" },
+    { name: "Careers", href: "/careers" },
     { name: "Contact", href: "/#contact" },
   ];
 
@@ -44,16 +46,16 @@ const Footer = ({ isDark }: FooterProps) => {
               software that drives business growth.
             </p>
             <div className="flex gap-4">
-              <a href="https://www.facebook.com/share/18gXhdbkVd/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
+              <a href={contactData.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
+              <a href={contactData.twitter} className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
+              <a href={contactData.linkedin} className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="https://www.instagram.com/ophex_software?igsh=YzljYTk1ODg3Zg==" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
+              <a href={contactData.instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
@@ -115,21 +117,20 @@ const Footer = ({ isDark }: FooterProps) => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground">
-                  Colombo road, Gampaha,<br />
-                  Sri Lanka
+                <span className="text-muted-foreground whitespace-pre-line">
+                  {contactData.address}
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <a href="tel:+94788834962" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
+                <a href={`tel:${contactData.phoneFormatted}`} className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
                   <Phone className="h-5 w-5 text-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <span>+94 78 883 4962</span>
+                  <span>{contactData.phone}</span>
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <a href="mailto:ophexsoftwaresolutions@gmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
+                <a href={`mailto:${contactData.email}`} className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
                   <Mail className="h-5 w-5 text-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <span>ophexsoftwaresolutions@gmail.com</span>
+                  <span>{contactData.email}</span>
                 </a>
               </li>
             </ul>

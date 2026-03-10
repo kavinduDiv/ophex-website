@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 // import { useToast } from "@/hooks/use-toast";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import emailjs from "@emailjs/browser"; // make sure to install @emailjs/browser
+import { contactData } from "@/data/contact";
 
 const ContactSection = () => {
   //   const { toast } = useToast();
@@ -40,24 +41,28 @@ const ContactSection = () => {
 
   const contactInfo = [
     {
+      id: "address",
       icon: MapPin,
       title: "Our Office",
-      content: "Colombo road, Gampaha,\nSri Lanka",
+      content: contactData.address,
     },
     {
+      id: "phone",
       icon: Phone,
       title: "Phone",
-      content: "+94 78 883 4962",
+      content: contactData.phone,
     },
     {
+      id: "email",
       icon: Mail,
       title: "Email",
-      content: "ophexsoftwaresolutions@gmail.com",
+      content: contactData.email,
     },
     {
+      id: "hours",
       icon: Clock,
       title: "Business Hours",
-      content: "Mon - Fri: 9:00 AM - 6:00 PM\nSat: 10:00 AM - 4:00 PM",
+      content: contactData.businessHours,
     },
   ];
 
@@ -102,17 +107,17 @@ const ContactSection = () => {
                   const Icon = item.icon;
                   return (
                     <ScrollReveal
-                      key={item.title}
+                      key={item.id}
                       variant="fade-left"
                       delay={200 + index * 100}
                     >
                       <div className="flex items-start gap-4 group">
-                        {item.title === "Phone" ? (
-                          <a href={`tel:${item.content.replace(/[^\d+]/g, "")}`} className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 hover:bg-primary/20 hover:shadow-glow transition-all duration-300">
+                        {item.id === "phone" ? (
+                          <a href={`tel:${contactData.phoneFormatted}`} className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 hover:bg-primary/20 hover:shadow-glow transition-all duration-300">
                             <Icon className="h-5 w-5 text-primary" />
                           </a>
-                        ) : item.title === "Email" ? (
-                          <a href={`mailto:${item.content}`} className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 hover:bg-primary/20 hover:shadow-glow transition-all duration-300">
+                        ) : item.id === "email" ? (
+                          <a href={`mailto:${contactData.email}`} className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 hover:bg-primary/20 hover:shadow-glow transition-all duration-300">
                             <Icon className="h-5 w-5 text-primary" />
                           </a>
                         ) : (
@@ -122,12 +127,12 @@ const ContactSection = () => {
                         )}
                         <div>
                           <h4 className="font-semibold mb-1">{item.title}</h4>
-                          {item.title === "Phone" ? (
-                            <a href={`tel:${item.content.replace(/[^\d+]/g, "")}`} className="block text-muted-foreground whitespace-pre-line hover:text-primary transition-colors">
+                          {item.id === "phone" ? (
+                            <a href={`tel:${contactData.phoneFormatted}`} className="block text-muted-foreground whitespace-pre-line hover:text-primary transition-colors">
                               {item.content}
                             </a>
-                          ) : item.title === "Email" ? (
-                            <a href={`mailto:${item.content}`} className="block text-muted-foreground whitespace-pre-line hover:text-primary transition-colors">
+                          ) : item.id === "email" ? (
+                            <a href={`mailto:${contactData.email}`} className="block text-muted-foreground whitespace-pre-line hover:text-primary transition-colors">
                               {item.content}
                             </a>
                           ) : (
