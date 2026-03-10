@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Globe, ShoppingCart, Smartphone, Code, Megaphone, Bot, MoveRight } from "lucide-react";
+import { Globe, ShoppingCart, Smartphone, Code, Megaphone, Bot } from "lucide-react";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import serviceWeb from "@/assets/services/web-dev-Large.png";
 import serviceEcommerce from "@/assets/services/e-com-Large.png";
@@ -84,69 +84,107 @@ const ServicesSection = () => {
         </ScrollReveal>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <ScrollReveal
-                key={service.id}
-                variant="zoom-in"
-                delay={index * 100}
-              >
+        <div className="relative w-full max-w-6xl mx-auto pb-12 lg:pb-32">
+          {/* Mobile Grid Layer (Visible only on mobile/tablet) */}
+          <div className="grid grid-cols-2 gap-3 md:gap-6 lg:hidden w-full">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <ScrollReveal
+                  key={service.id}
+                  variant="zoom-in"
+                  delay={index * 100}
+                  className={`h-full max-w-sm mx-auto w-full ` + (index % 2 === 0 ? 'mt-0 ' : 'mt-8 sm:mt-12 ')}
+                >
+                  <ServiceCard service={service} Icon={Icon} />
+                </ScrollReveal>
+              );
+            })}
+          </div>
 
-                <div className="group flex flex-col bg-white/[0.03] backdrop-blur-[2px] backdrop-saturate-[180%] border border-white/15 border-t-white/20 border-l-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden shadow-card h-full hover:shadow-card-hover hover:-translate-y-1 duration-300">
-                  {/* Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
-                    <div className="absolute bottom-4 left-4">
-                      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center animate-pulse-slow">
-                        <Icon className="h-6 w-6 text-primary-foreground" />
-                      </div>
-                    </div>
-                  </div>
+          {/* Desktop Double Triangle Layer (Visible only on desktop) */}
+          <div className="hidden lg:flex flex-col gap-12 items-center justify-center w-full">
+            {/* Top Row: 3 items staggered with center item lower */}
+            <div className="grid grid-cols-3 gap-6 lg:gap-8 w-full max-w-5xl">
+              {services.slice(0, 3).map((service, index) => {
+                const Icon = service.icon;
+                return (
+                  <ScrollReveal
+                    key={`desktop-top-${service.id}`}
+                    variant="fade-up"
+                    delay={index * 100}
+                    // For an upward triangle, make the center one higher, outers lower.
+                    // Actually, "upper two triangles" implies an arrow-like V shape 
+                    // Let's do center pushed down to look like a \/ with 3 items
+                    className={`w-full ${index === 1 ? 'translate-y-12' : ''}`}
+                  >
+                    <ServiceCard service={service} Icon={Icon} />
+                  </ScrollReveal>
+                );
+              })}
+            </div>
 
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-muted-foreground mb-4 line-clamp-3">{service.description}</p>
-
-                    {/* Features */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {service.features.map((feature) => (
-                        <span
-                          key={feature}
-                          className="px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
-                    <Link
-                      to={`/services/${service.id}`}
-                    >
-                      <div
-                        className="group/link inline-flex items-center text-primary font-semibold transition-all mt-auto"
-                      >
-                        Learn More &nbsp;
-                        <MoveRight size={22} className="mt-1 group-hover/link:ms-4 ease-out duration-100" />
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </ScrollReveal>
-            );
-          })}
+            {/* Bottom Row: 3 items staggered same way below */}
+            <div className="grid grid-cols-3 gap-6 lg:gap-8 w-full max-w-5xl mt-6">
+              {services.slice(3, 6).map((service, index) => {
+                const Icon = service.icon;
+                return (
+                  <ScrollReveal
+                    key={`desktop-bot-${service.id}`}
+                    variant="fade-up"
+                    delay={(index + 3) * 100}
+                    className={`w-full ${index === 1 ? 'translate-y-12' : ''}`}
+                  >
+                    <ServiceCard service={service} Icon={Icon} />
+                  </ScrollReveal>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 };
+
+// Extracted ServiceCard component for reuse in both layouts
+const ServiceCard = ({ service, Icon }: { service: any, Icon: any }) => (
+  <Link
+    to={`/services/${service.id}`}
+    className="group relative flex flex-col bg-white/[0.03] hover:bg-white/[0.08] backdrop-blur-[2px] backdrop-saturate-[180%] border border-white/15 border-t-white/20 border-l-white/20 rounded-2xl overflow-hidden shadow-card h-full min-h-[220px] lg:min-h-[200px] hover:shadow-card-hover hover:-translate-y-2 duration-300 p-5 sm:p-6"
+  >
+    {/* Full Inner Frame Line */}
+    <div className="absolute inset-2 sm:inset-3 border-2 border-transparent group-hover:border-orange-500 rounded-xl transition-colors duration-500 ease-out z-10 pointer-events-none opacity-0 group-hover:opacity-100" />
+
+    {/* Icon */}
+    <div className="relative mb-3 sm:mb-4 z-20">
+      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 group-hover:bg-primary/20 rounded-xl flex items-center justify-center transition-colors duration-300">
+        <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+      </div>
+    </div>
+
+    {/* Content */}
+    <div className="flex flex-col flex-grow relative z-20">
+      <h3 className="text-base sm:text-lg font-bold mb-2 group-hover:text-primary transition-colors">
+        {service.title}
+      </h3>
+      <p className="text-muted-foreground mb-4 line-clamp-3 text-xs sm:text-sm flex-grow">
+        {service.description}
+      </p>
+
+      {/* Features */}
+      <div className="flex flex-wrap gap-1.5 mt-auto sm:flex">
+        {service.features.map((feature: string) => (
+          <span
+            key={feature}
+            className="px-2 py-1 bg-secondary text-secondary-foreground text-[10px] sm:text-xs rounded-sm whitespace-nowrap"
+          >
+            {feature}
+          </span>
+        ))}
+      </div>
+    </div>
+  </Link>
+);
 
 export default ServicesSection;

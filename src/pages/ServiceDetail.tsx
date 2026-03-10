@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useState, useEffect } from "react";
-import serviceWeb from "@/assets/service-web.jpg";
-import serviceEcommerce from "@/assets/service-ecommerce.jpg";
-import serviceApp from "@/assets/service-app.jpg";
-import serviceSoftware from "@/assets/service-software.jpg";
-import serviceMarketing from "@/assets/service-marketing.jpg";
-import serviceIotAi from "@/assets/service-iot&ai.jpg";
+import serviceWeb from "@/assets/services/web-dev-Large.png";
+import serviceEcommerce from "@/assets/services/e-com-Large.png";
+import serviceApp from "@/assets/services/mobile-Large.png";
+import serviceSoftware from "@/assets/services/se-app-Large.png";
+import serviceMarketing from "@/assets/services/marketing-Large.png";
+import serviceIotAi from "@/assets/services/IoT-Large.png";
 
 const servicesData = {
   "web-development": {
@@ -288,12 +288,25 @@ const ServiceDetail = () => {
             <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
               Let's discuss how we can help you achieve your goals with our {service.title.toLowerCase()} services.
             </p>
-            <Button variant="hero" size="lg" asChild>
-              <Link to="/#contact">
-                Start Your Project
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
+            <div className="relative inline-block mt-4 group">
+              {/* Animated Radar Outline Layers - Thicker Orange Glow */}
+              <div className="absolute inset-0 rounded-full border-[3px] border-orange-500/60 animate-ping opacity-75 pointer-events-none" style={{ animationDuration: '2.5s' }} />
+              <div className="absolute inset-0 rounded-full border-[3px] border-orange-500/40 animate-ping opacity-50 pointer-events-none" style={{ animationDuration: '3.5s', animationDelay: '0.8s' }} />
+
+              {/* We apply a slow pulse animation to the button itself so it grows and shrinks */}
+              <div className="animate-pulse" style={{ animationDuration: '3s' }}>
+                <Button
+                  size="lg"
+                  asChild
+                  className="relative z-10 bg-orange-500 hover:bg-orange-600 text-white border-[2px] border-orange-400 hover:scale-110 transition-all duration-300 rounded-full px-8 py-6 text-lg shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_35px_rgba(249,115,22,0.7)]"
+                >
+                  <Link to="/#contact" className="flex items-center">
+                    Start Your Project
+                    <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </section>
       </main>
