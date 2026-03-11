@@ -9,7 +9,7 @@ import productBill from "@/assets/product-bill.jpg";
 export const products = [
     {
         id: "lms",
-        title: "Ophex Learn",
+        title: "OPHEX LMS",
         subtitle: "All-in-One Learning Management System",
         description: "Streamline your institution's operations with our all-in-one Learning Management System (LMS) designed to simplify academic and administrative tasks.",
         fullDescription: `
@@ -42,7 +42,7 @@ export const products = [
     },
     {
         id: "service-center",
-        title: "Ophex Fix",
+        title: "OPHEX SCMS",
         subtitle: "Smart Service Center Management System",
         description: "Transform your service shop into a Smart Shop! Streamline your workflow, boost efficiency, and grow your business with smart automation.",
         fullDescription: `
@@ -73,7 +73,7 @@ export const products = [
     },
     {
         id: "stock-management",
-        title: "Ophex Stock",
+        title: "OPHEX STOCK",
         subtitle: "Web-Based Stock Management System",
         description: "Transform your inventory! Streamline your warehouse, store, and delivery operations with our Web-Based Stock Management System.",
         fullDescription: `
@@ -106,7 +106,7 @@ export const products = [
     },
     {
         id: "hr-management",
-        title: "Ophex HR",
+        title: "OPHEX HR",
         subtitle: "Complete Human Resource Management System",
         description: "Streamline your workforce operations, from recruitment and onboarding to payroll, attendance tracking, and performance evaluations.",
         fullDescription: `
@@ -133,7 +133,7 @@ export const products = [
     },
     {
         id: "crm-system",
-        title: "Ophex CRM",
+        title: "OPHEX CRM",
         subtitle: "Customer Relationship & Task Progress Tracking",
         description: "Build stronger customer relationships and track internal task progress seamlessly through a unified, collaborative dashboard.",
         fullDescription: `
