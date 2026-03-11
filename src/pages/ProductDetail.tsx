@@ -46,11 +46,11 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden flex items-end pb-12 md:pb-20">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-background">
           <img
             src={product.image}
             alt={product.title}
-            className="h-full w-full object-cover brightness-[0.3]"
+            className="w-full h-full object-contain md:object-cover object-top md:object-center brightness-[0.4] opacity-80"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
         </div>
@@ -149,12 +149,29 @@ const ProductDetail = () => {
 
                   <div className="mt-8 pt-8 border-t border-border/50 space-y-4">
                     <h4 className="font-semibold text-lg">Ready to transform your business?</h4>
-                    <Button className="w-full h-12 text-lg group">
-                      <Link to="/#contact" className="flex items-center justify-center w-full h-full">
-                        Contact Sales
-                        <ArrowLeft className="ml-2 h-4 w-4 rotate-180 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </Button>
+                    
+                    <div className="relative group">
+                      {/* Pulsing Background Glow (Does not affect button text opacity) */}
+                      <div 
+                        className="absolute inset-0 bg-primary/80 rounded-md blur-lg animate-pulse group-hover:bg-primary/90 transition-colors" 
+                        style={{ animationDuration: '3s' }} 
+                      />
+                      <Button 
+                        asChild 
+                        className="relative z-10 w-full h-12 text-lg bg-primary hover:bg-orange-600 text-white border-[2px] border-orange-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_15px_rgba(249,115,22,0.6)] hover:shadow-[0_0_25px_rgba(249,115,22,0.8)]"
+                      >
+                        <a 
+                          href={`https://wa.me/${contactData.whatsapp}?text=${encodeURIComponent(`Hello, I want to discuss the ${product.title} solution for my business.`)}`}
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center w-full h-full"
+                        >
+                          Contact Sales
+                          <ArrowLeft className="ml-2 h-4 w-4 rotate-180 group-hover:translate-x-1 transition-transform" />
+                        </a>
+                      </Button>
+                    </div>
+
                     <p className="text-xs text-center text-muted-foreground flex items-center justify-center gap-1">
                       <Clock className="h-3 w-3" />
                       Typically responds within 2 hours

@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Check, Globe, ShoppingCart, Smartphone, Code, Me
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { contactData } from "@/data/contact";
 import { useState, useEffect } from "react";
 import serviceWeb from "@/assets/services/web-dev-Large.png";
 import serviceEcommerce from "@/assets/services/e-com-Large.png";
@@ -294,23 +295,27 @@ const ServiceDetail = () => {
               Let's discuss how we can help you achieve your goals with our {service.title.toLowerCase()} services.
             </p>
             <div className="relative inline-block mt-4 group">
-              {/* Animated Radar Outline Layers - Thicker Orange Glow */}
-              <div className="absolute inset-0 rounded-full border-[3px] border-orange-500/60 animate-ping opacity-75 pointer-events-none" style={{ animationDuration: '2.5s' }} />
-              <div className="absolute inset-0 rounded-full border-[3px] border-orange-500/40 animate-ping opacity-50 pointer-events-none" style={{ animationDuration: '3.5s', animationDelay: '0.8s' }} />
-
-              {/* We apply a slow pulse animation to the button itself so it grows and shrinks */}
-              <div className="animate-pulse" style={{ animationDuration: '3s' }}>
-                <Button
-                  size="lg"
-                  asChild
-                  className="relative z-10 bg-orange-500 hover:bg-orange-600 text-white border-[2px] border-orange-400 hover:scale-110 transition-all duration-300 rounded-full px-8 py-6 text-lg shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_35px_rgba(249,115,22,0.7)]"
+              {/* Pulsing Background Glow (Does not affect the button text) */}
+              <div 
+                className="absolute inset-0 bg-orange-500/80 rounded-full blur-xl animate-pulse group-hover:bg-orange-600/90 transition-colors" 
+                style={{ animationDuration: '3s' }} 
+              />
+              
+              <Button
+                size="lg"
+                asChild
+                className="relative z-10 bg-orange-500 hover:bg-orange-600 text-white border-[2px] border-orange-400 hover:scale-105 transition-all duration-300 rounded-full px-8 py-6 text-lg shadow-[0_0_20px_rgba(249,115,22,0.6)] hover:shadow-[0_0_30px_rgba(249,115,22,0.8)]"
+              >
+                <a 
+                  href={`https://wa.me/${contactData.whatsapp}?text=${encodeURIComponent(`Hello, I want to develop a ${service.title} solution.`)}`}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center"
                 >
-                  <Link to="/#contact" className="flex items-center">
-                    Start Your Project
-                    <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
+                  Start Your Project
+                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
             </div>
           </div>
         </section>
