@@ -10,84 +10,98 @@ export const products = [
     {
         id: "lms",
         title: "Ophex Learn",
-        subtitle: "Enterprise Learning Management System",
-        description: "A comprehensive e-learning platform designed to revolutionize education delivery. create, manage, and track educational content with advanced analytics and engagement tools.",
+        subtitle: "All-in-One Learning Management System",
+        description: "Streamline your institution's operations with our all-in-one Learning Management System (LMS) designed to simplify academic and administrative tasks.",
         fullDescription: `
-      Ophex Learn is a state-of-the-art Learning Management System (LMS) tailored for educational institutions and corporate training programs. 
-      It provides a seamless environment for instructors to deliver content and for students to engage with learning materials effectively.
+      Ophex Learn is designed specifically to streamline operations for Schools, Colleges, and Institute Centers by simplifying academic and administrative tasks while enhancing learning experiences.
       
-      With built-in video conferencing, automated grading, and detailed progress tracking, Ophex Learn bridges the gap between traditional and digital education.
+      Digitize your entire admission process with online applications, automated approvals, and real-time data tracking to effortlessly manage student records. Simplify exam scheduling, grading, and result publishing to generate accurate performance reports.
+      
+      Automate fee collection, invoice generation, and payment tracking with timely reminders. Track student attendance in real-time with automated marking and instant absence notifications. Empower parents and students with instant access to their own dedicated portal for grades, attendance, and assignments.
+      
+      Keep everyone connected with built-in SMS, email, and push communication tools, and seamlessly integrate virtual e-learning platforms to fully support modern remote education.
     `,
         icon: BookOpen,
         image: productLms,
         features: [
-            "Intuitive Course Builder",
-            "Live Virtual Classrooms",
-            "Student Progress Analytics",
-            "Automated Assessments & Quizzes",
-            "Digital Certificate Generation",
-            "Mobile-First Student Portal",
+            "Student Enrollment & Admission",
+            "Grade & Exam Management",
+            "Real-time Attendance Tracking",
+            "Automated Fee Management",
+            "Parent & Student Portal",
+            "Timetable & Class Management",
+            "Integrated Communication Tools",
+            "24x7 Technical Support",
         ],
         benefits: [
-            "Increase engagement with interactive content",
-            "Reduce administrative workload with automation",
-            "Scale your training programs effortlessly",
-            "Access learning materials anywhere, anytime",
+            "Boost overall institutional productivity",
+            "Save administrative time & resources",
+            "Improve communication between staff, students & parents",
+            "Enhance student learning outcomes",
         ]
     },
     {
         id: "service-center",
         title: "Ophex Fix",
-        subtitle: "Service Center Management Solution",
-        description: "Streamline your service operations with our powerful ticketing, scheduling, and customer management solution.",
+        subtitle: "Smart Service Center Management System",
+        description: "Transform your service shop into a Smart Shop! Streamline your workflow, boost efficiency, and grow your business with smart automation.",
         fullDescription: `
-      Ophex Fix is the ultimate solution for authorized service centers and repair shops. 
-      From ticket creation to invoicing, it automates every step of the repair lifecycle.
+      Managing a service center has never been this easy! Ophex Fix is designed for auto repair shops, electronics service centers, appliance repair businesses, and more. 
       
-      Keep your customers informed with automated SMS/Email updates and manage your spare parts inventory in real-time to avoid stockouts.
+      It streamlines your entire workflow—from customers booking hassle-free online appointments to mechanics tracking repairs via Job Cards. 
+      
+      Keep your spare parts stock under perfect control, generate automated invoices in a click, and improve customer retention by maintaining detailed service histories and sending automated SMS & Email updates. Handle it all on-the-go with our mobile-friendly dashboard!
     `,
         icon: Wrench,
         image: productService,
         features: [
-            "End-to-End Ticket Management",
-            "Comprehensive Customer CRM",
-            "Technician Scheduling & assignment",
-            "Real-time Parts Inventory",
+            "Online Appointments & Booking",
+            "Job Card & Repair Tracking",
+            "Spare Parts & Inventory Control",
             "Automated Invoicing & Billing",
-            "Performance & Revenue Reports",
+            "SMS & Email Notifications",
+            "Warranty & Claim Tracking",
+            "Mobile-Friendly Dashboard",
+            "Custom Service Packages",
         ],
         benefits: [
-            "Minimize turnaround time for repairs",
-            "Enhance customer satisfaction with transparency",
-            "Optimize technician productivity",
-            "Eliminate parts pilferage and wastage",
+            "Convert into a modernized Smart Shop",
+            "Boost shop efficiency and workflow",
+            "Improve long-term customer retention",
+            "Get instant AI-driven business insights",
         ]
     },
     {
         id: "stock-management",
         title: "Ophex Stock",
-        subtitle: "Advanced Inventory Control System",
-        description: "Take full control of your inventory with real-time tracking, automated reordering, and comprehensive reporting.",
+        subtitle: "Web-Based Stock Management System",
+        description: "Transform your inventory! Streamline your warehouse, store, and delivery operations with our Web-Based Stock Management System.",
         fullDescription: `
-      Ophex Stock empowers businesses to maintain optimal inventory levels, reduce carrying costs, and prevent stockouts.
+      Ophex Stock is designed specifically for hardware shops, warehouses, and product delivery agencies. Reduce manual work, improve accuracy, and gain full control over your inventory from anywhere.
       
-      Ideal for retail chains, warehouses, and distribution centers, our system integrates seamlessly with barcode scanners and POS systems for accurate, real-time data.
+      Digitize your goods receiving process with fast GRN issuing, track supplier payments, and monitor stock availability across multiple district locations effortlessly. 
+      
+      For distribution, effectively organize orders by route and store, assign bikers to collect orders with complete operational summaries, and generate lorry release notes and journey summaries covering stock movements and shortages.
+      
+      Maintain absolute transparency and accountability with complete audit logs and secure role-based access control (RBAC).
     `,
         icon: Package,
         image: productStock,
         features: [
-            "Real-time Inventory Tracking",
-            "Barcode & QR Code Scanning",
-            "Multi-Warehouse Support",
-            "Low Stock Automated Alerts",
-            "Purchase Order Management",
-            "Expiry Date Tracking",
+            "GRN Issuing & Goods Receipt",
+            "Supplier Payment Tracking",
+            "District-Based Inventory Control",
+            "Route & Store Order Management",
+            "Biker Collection & Payment Reports",
+            "Lorry Release Notes & Journey Logs",
+            "Returns Handling & Auto Reports",
+            "Audit Logging & Activity Tracking",
         ],
         benefits: [
-            "Prevent stockouts and overstocking",
-            "Streamline procurement processes",
-            "Gain visibility across multiple locations",
-            "Improve order fulfillment accuracy",
+            "Reduce stock tracking errors",
+            "Improve delivery and logistics efficiency",
+            "Automate payments and detailed reporting",
+            "Gain complete business and inventory control",
         ]
     },
     {
