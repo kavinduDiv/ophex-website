@@ -80,7 +80,7 @@ const BackToTopButton = () => {
                             cx="28"
                             cy="28"
                             r={radius}
-                            className="stroke-orange-500 fill-none drop-shadow-[0_0_6px_rgba(249,115,22,0.8)] mix-blend-screen transition-all duration-[50ms]"
+                            className="stroke-orange-500 fill-none drop-shadow-[0_0_6px_rgba(249,115,22,0.8)] mix-blend-screen transition-all duration-75"
                             strokeWidth="3"
                             strokeDasharray="4 6"
                             strokeLinecap="round"
