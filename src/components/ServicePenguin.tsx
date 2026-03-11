@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 
-const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false }: { serviceId: string, isRelativeOnDesktop?: boolean }) => {
+const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false, isAbsoluteTopMobile = false }: { serviceId: string, isRelativeOnDesktop?: boolean, isAbsoluteTopMobile?: boolean }) => {
     const [isBlinking, setIsBlinking] = useState(false);
     const [lookDirection, setLookDirection] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
@@ -61,13 +61,15 @@ const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false }: { serviceId:
     return (
         <div
             className={`
-        ${isRelativeOnDesktop ? 'fixed xl:relative' : 'fixed'} z-50 transition-all duration-1000 ease-in-out pointer-events-none
+        ${isAbsoluteTopMobile ? 'absolute xl:relative' : (isRelativeOnDesktop ? 'fixed xl:relative' : 'fixed')} z-50 transition-all duration-1000 ease-in-out pointer-events-none
         
-        /* Mobile: Compact, anchored to bottom right, slightly visible */
-        w-[280px] h-[360px] right-4 bottom-0 scale-75 origin-bottom-right
+        /* Mobile: Compact, dynamically anchored */
+        w-[280px] h-[360px] scale-75 
+        ${isAbsoluteTopMobile ? '-top-20 -right-8 origin-top-right' : 'right-4 bottom-0 origin-bottom-right'}
         
         /* Tablet: Slightly larger */
-        md:w-[400px] md:h-[500px] md:-right-12 md:bottom-0 md:scale-90
+        md:w-[400px] md:h-[500px] md:scale-90
+        ${isAbsoluteTopMobile ? 'md:-top-24 md:-right-12' : 'md:-right-12 md:bottom-0'}
 
         /* Desktop: Full size, better positioned, toggleable absolute/relative */
         xl:w-[600px] xl:h-[700px] xl:-right-16 ${isRelativeOnDesktop ? 'xl:top-0 xl:-translate-y-0 xl:scale-100' : 'xl:top-[55%] xl:-translate-y-1/2 xl:scale-90'} xl:origin-center

@@ -211,6 +211,11 @@ const ServiceDetail = () => {
 
           <div className="container mx-auto px-4 relative z-10 flex flex-col xl:flex-row items-center justify-between gap-12">
             <div className="max-w-4xl w-full">
+              {/* Mobile Mascot Placement (Absolute Top Right of Hero) */}
+              <div className="xl:hidden absolute top-0 right-0 w-full h-full z-50 pointer-events-none">
+                <ServicePenguin serviceId={serviceId || ""} isRelativeOnDesktop={true} isAbsoluteTopMobile={true} />
+              </div>
+
               <Link
                 to="/#services"
                 className="inline-flex items-center text-primary font-medium mb-8 hover:gap-3 gap-2 transition-all"
@@ -321,10 +326,6 @@ const ServiceDetail = () => {
         </section>
       </main>
 
-      {/* Mobile/Tablet Mascot Placement */}
-      <div className="xl:hidden">
-        <ServicePenguin serviceId={serviceId || ""} />
-      </div>
       <Footer isDark={isDark} />
     </div>
   );
