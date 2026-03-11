@@ -12,7 +12,7 @@ const WhatsAppButton = () => {
             href={`https://wa.me/${contactData.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 z-[100] group flex items-center justify-center p-3 rounded-full bg-white text-black transition-colors duration-300"
+            className="fixed bottom-6 right-6 z-40 group flex items-center justify-center p-3 rounded-full bg-white text-black transition-colors duration-300"
             style={{
                 boxShadow: isHovered
                     ? "0 0 20px 5px rgba(249, 115, 22, 0.6)"

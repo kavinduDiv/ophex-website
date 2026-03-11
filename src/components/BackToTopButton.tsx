@@ -44,7 +44,7 @@ const BackToTopButton = () => {
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }} // Super smooth spring-like ease
                     // bg-background/30 backdrop-blur-md matches the glass transparency of service cards
                     // w-14 h-14 matches WhatsApp button sizing (approx 56px)
-                    className="fixed bottom-6 left-6 z-[100] group flex items-center justify-center w-14 h-14 rounded-full bg-background/30 backdrop-blur-md shadow-lg border border-primary/20 hover:border-orange-500/50 hover:bg-background/50 hover:scale-[1.15] transition-all duration-300 pointer-events-auto hover:shadow-[0_0_25px_rgba(249,115,22,0.7)]"
+                    className="fixed bottom-6 left-6 z-40 group flex items-center justify-center w-14 h-14 rounded-full bg-background/30 backdrop-blur-md shadow-lg border border-primary/20 hover:border-orange-500/50 hover:bg-background/50 hover:scale-[1.15] transition-all duration-300 pointer-events-auto hover:shadow-[0_0_25px_rgba(249,115,22,0.7)]"
                     aria-label="Back to Top"
                 >
                     {/* Progress SVG Ring */}

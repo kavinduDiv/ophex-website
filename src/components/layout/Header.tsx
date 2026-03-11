@@ -127,10 +127,11 @@ const Header = ({ isDark }: HeaderProps) => {
             </Button>
           </div>
         </nav>
+      </div>
 
-        {/* Mobile Navigation Drawer */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
+      {/* Mobile Navigation Dropdown */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
             <>
               {/* Backdrop */}
               <motion.div
@@ -138,39 +139,26 @@ const Header = ({ isDark }: HeaderProps) => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden"
+                className="fixed inset-0 top-20 bg-background/80 backdrop-blur-sm z-40 lg:hidden"
                 onClick={() => setIsMobileMenuOpen(false)}
               />
 
-              {/* Drawer */}
+              {/* Dropdown Menu */}
               <motion.div
-                initial={{ x: "100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "100%" }}
-                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-background/95 backdrop-blur-xl border-l border-border shadow-2xl z-50 lg:hidden flex flex-col"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.2 }}
+                className="fixed top-20 left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border shadow-2xl z-50 lg:hidden"
               >
-                {/* Drawer Header */}
-                <div className="flex items-center justify-between p-6 border-b border-border/50">
-                  <span className="font-bold text-xl tracking-wide">Menu</span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="rounded-full hover:bg-primary/20 hover:text-primary transition-colors"
-                  >
-                    <X className="h-6 w-6" />
-                  </Button>
-                </div>
-
-                {/* Drawer Links */}
-                <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-2">
+                {/* Dropdown Links */}
+                <div className="container py-6 flex flex-col gap-2 max-h-[calc(100vh-5rem)] overflow-y-auto">
                   {navLinks.map((link, i) => (
                     <motion.div
                       key={link.name}
-                      initial={{ opacity: 0, x: 20 }}
+                      initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + i * 0.05 }}
+                      transition={{ delay: 0.05 * i }}
                     >
                       <Link
                         to={link.href}
@@ -184,47 +172,46 @@ const Header = ({ isDark }: HeaderProps) => {
                   ))}
 
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="mt-6"
+                    transition={{ delay: 0.3 }}
+                    className="mt-4 mb-2"
                   >
                     <Button variant="default" className="w-full h-12 text-lg shadow-lg shadow-primary/20" asChild>
                       <Link to="/#contact" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
                     </Button>
                   </motion.div>
-                </div>
 
-                {/* Drawer Footer - Social Links */}
-                <div className="p-6 border-t border-border/50 mt-auto">
-                  <p className="text-sm font-medium text-muted-foreground mb-4">Connect with us</p>
-                  <div className="flex gap-4">
-                    {[
-                      { icon: FaFacebookF, href: contactData.facebook },
-                      { icon: FaTwitter, href: contactData.twitter },
-                      { icon: FaLinkedinIn, href: contactData.linkedin },
-                      { icon: FaInstagram, href: contactData.instagram },
-                    ].map((social, idx) => (
-                      <motion.a
-                        key={idx}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.5 + idx * 0.1 }}
-                        className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 hover:bg-primary hover:shadow-[0_0_15px_rgba(249,115,22,0.5)] hover:scale-110"
-                      >
-                        <social.icon size={18} />
-                      </motion.a>
-                    ))}
+                  {/* Dropdown Footer - Social Links */}
+                  <div className="pt-6 mt-2 border-t border-border/50">
+                    <p className="text-sm font-medium text-muted-foreground mb-4 text-center">Connect with us</p>
+                    <div className="flex gap-4 justify-center">
+                      {[
+                        { icon: FaFacebookF, href: contactData.facebook },
+                        { icon: FaTwitter, href: contactData.twitter },
+                        { icon: FaLinkedinIn, href: contactData.linkedin },
+                        { icon: FaInstagram, href: contactData.instagram },
+                      ].map((social, idx) => (
+                        <motion.a
+                          key={idx}
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.4 + idx * 0.1 }}
+                          className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 hover:bg-primary hover:shadow-[0_0_15px_rgba(249,115,22,0.5)] hover:scale-110"
+                        >
+                          <social.icon size={18} />
+                        </motion.a>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </motion.div>
             </>
           )}
         </AnimatePresence>
-      </div>
     </header>
   );
 };
