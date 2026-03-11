@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, Briefcase, Package, Users, Mail } from "lucide-react";
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import { contactData } from "@/data/contact";
 import ophexDark from "@/assets/ophex_dark.png";
 import ophexLight from "@/assets/ophex_light.png";
 
@@ -23,13 +26,25 @@ const Header = ({ isDark }: HeaderProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
   const navLinks = [
-    { name: "Home", href: "/#hero" },
-    { name: "Services", href: "/#services" },
-    { name: "Products", href: "/#products" },
-    // { name: "Portfolio", href: "/#portfolio" },
-    { name: "Careers", href: "/careers" },
-    { name: "Contact", href: "/#contact" },
+    { name: "Home", href: "/#hero", icon: Home },
+    { name: "Services", href: "/#services", icon: Briefcase },
+    { name: "Products", href: "/#products", icon: Package },
+    // { name: "Portfolio", href: "/#portfolio", icon: ImageIcon },
+    { name: "Careers", href: "/careers", icon: Users },
+    { name: "Contact", href: "/#contact", icon: Mail },
   ];
 
   const handleNavClick = (href: string) => {
@@ -113,26 +128,102 @@ const Header = ({ isDark }: HeaderProps) => {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-20 left-0 right-0 bg-background border-b border-border shadow-lg animate-slide-up">
-            <div className="container py-6 space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  className="block text-foreground/80 hover:text-primary font-medium py-2 transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <Button variant="default" className="w-full mt-4" asChild>
-                <Link to="/#contact">Get Started</Link>
-              </Button>
-            </div>
-          </div>
-        )}
+        {/* Mobile Navigation Drawer */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden"
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+
+              {/* Drawer */}
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                className="fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-background/95 backdrop-blur-xl border-l border-border shadow-2xl z-50 lg:hidden flex flex-col"
+              >
+                {/* Drawer Header */}
+                <div className="flex items-center justify-between p-6 border-b border-border/50">
+                  <span className="font-bold text-xl tracking-wide">Menu</span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="rounded-full hover:bg-primary/20 hover:text-primary transition-colors"
+                  >
+                    <X className="h-6 w-6" />
+                  </Button>
+                </div>
+
+                {/* Drawer Links */}
+                <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-2">
+                  {navLinks.map((link, i) => (
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + i * 0.05 }}
+                    >
+                      <Link
+                        to={link.href}
+                        onClick={() => handleNavClick(link.href)}
+                        className="flex items-center gap-4 text-lg font-medium text-foreground/80 hover:text-primary p-3 rounded-xl hover:bg-primary/10 transition-all duration-300"
+                      >
+                        <link.icon className="h-5 w-5 opacity-70" />
+                        {link.name}
+                      </Link>
+                    </motion.div>
+                  ))}
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="mt-6"
+                  >
+                    <Button variant="default" className="w-full h-12 text-lg shadow-lg shadow-primary/20" asChild>
+                      <Link to="/#contact" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
+                    </Button>
+                  </motion.div>
+                </div>
+
+                {/* Drawer Footer - Social Links */}
+                <div className="p-6 border-t border-border/50 mt-auto">
+                  <p className="text-sm font-medium text-muted-foreground mb-4">Connect with us</p>
+                  <div className="flex gap-4">
+                    {[
+                      { icon: FaFacebookF, href: contactData.facebook },
+                      { icon: FaTwitter, href: contactData.twitter },
+                      { icon: FaLinkedinIn, href: contactData.linkedin },
+                      { icon: FaInstagram, href: contactData.instagram },
+                    ].map((social, idx) => (
+                      <motion.a
+                        key={idx}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.5 + idx * 0.1 }}
+                        className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 hover:bg-primary hover:shadow-[0_0_15px_rgba(249,115,22,0.5)] hover:scale-110"
+                      >
+                        <social.icon size={18} />
+                      </motion.a>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

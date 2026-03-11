@@ -4,6 +4,7 @@ import { ArrowLeft, CheckCircle, Activity, Target, Shield, Clock, Rocket } from 
 import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import { contactData } from "@/data/contact";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -72,14 +73,22 @@ const ProductDetail = () => {
             <p className="text-xl text-white/80 max-w-2xl leading-relaxed">
               {product.description}
             </p>
-            <div className="flex gap-4 mt-8">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white gap-2 shadow-lg shadow-primary/20 hover:translate-y-[-2px] transition-transform">
-                Get Started
-                <Rocket className="h-4 w-4" />
+            <div className="flex gap-4 mt-8 flex-wrap">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white gap-2 shadow-lg shadow-primary/20 hover:translate-y-[-2px] transition-transform">
+                <Link to="/#contact">
+                  Get Started
+                  <Rocket className="h-4 w-4" />
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="backdrop-blur-sm border-white/20 text-white hover:bg-white/10">
-                View Demo
-                <Activity className="ml-2 h-4 w-4" />
+              <Button asChild size="lg" variant="outline" className="backdrop-blur-sm border-white/20 text-white hover:bg-white/10">
+                <a
+                  href={`https://wa.me/${contactData.whatsapp}?text=${encodeURIComponent(`Hello, I would like to request a demo for ${product.title}.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Request Demo
+                  <Activity className="ml-2 h-4 w-4" />
+                </a>
               </Button>
             </div>
           </ScrollReveal>

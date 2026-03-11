@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
+import { Headset } from "lucide-react";
 import { motion } from "framer-motion";
 import { contactData } from "@/data/contact";
 
@@ -47,8 +48,9 @@ const WhatsAppButton = () => {
                 </>
             )}
 
-            {/* Tooltip */}
-            <div className="absolute right-full mr-4 px-3 py-1.5 bg-black/80 backdrop-blur-md text-white text-sm font-medium rounded-lg opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap border border-white/10">
+            {/* Tooltip Chat Bubble */}
+            <div className="absolute right-full mr-4 px-4 py-2 bg-black/80 backdrop-blur-md text-white text-sm font-medium rounded-lg opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap border border-white/10 flex items-center gap-2 shadow-lg shadow-black/20 after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 after:-right-[5px] after:w-2 after:h-2 after:bg-black/80 after:rotate-45 after:border-r after:border-t after:border-white/10">
+                <Headset size={16} className="text-orange-500" />
                 Contact us on WhatsApp
             </div>
 
