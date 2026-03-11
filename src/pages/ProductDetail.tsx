@@ -45,7 +45,7 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden flex items-end pb-12 md:pb-20">
+      <section className="relative min-h-[60vh] h-auto pt-32 lg:pt-0 lg:h-[70vh] w-full overflow-hidden flex items-end pb-12 md:pb-20">
         <div className="absolute inset-0 z-0 bg-background">
           <img
             src={product.image}
@@ -61,8 +61,8 @@ const ProductDetail = () => {
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Products
             </Link>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 md:p-3 bg-primary/20 rounded-xl backdrop-blur-sm border border-primary/20">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+              <div className="w-12 h-12 md:w-14 md:h-14 bg-primary/20 rounded-xl backdrop-blur-sm border border-primary/20 flex items-center justify-center shrink-0">
                 <Icon className="h-6 w-6 md:h-8 md:w-8 text-primary" />
               </div>
               <span className="text-lg md:text-xl font-medium text-white/90">{product.subtitle}</span>
@@ -149,20 +149,20 @@ const ProductDetail = () => {
 
                   <div className="mt-8 pt-8 border-t border-border/50 space-y-4">
                     <h4 className="font-semibold text-base md:text-lg">Ready to transform your business?</h4>
-                    
+
                     <div className="relative group">
                       {/* Pulsing Background Glow (Does not affect button text opacity) */}
-                      <div 
-                        className="absolute inset-0 bg-primary/80 rounded-md blur-lg animate-pulse group-hover:bg-primary/90 transition-colors" 
-                        style={{ animationDuration: '3s' }} 
+                      <div
+                        className="absolute inset-0 bg-primary/80 rounded-md blur-lg animate-pulse group-hover:bg-primary/90 transition-colors"
+                        style={{ animationDuration: '3s' }}
                       />
-                      <Button 
-                        asChild 
+                      <Button
+                        asChild
                         className="relative z-10 w-full h-12 text-lg bg-primary hover:bg-orange-600 text-white border-[2px] border-orange-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_15px_rgba(249,115,22,0.6)] hover:shadow-[0_0_25px_rgba(249,115,22,0.8)]"
                       >
-                        <a 
+                        <a
                           href={`https://wa.me/${contactData.whatsapp}?text=${encodeURIComponent(`Hello, I want to discuss the ${product.title} solution for my business.`)}`}
-                          target="_blank" 
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center w-full h-full"
                         >
