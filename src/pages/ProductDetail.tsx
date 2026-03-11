@@ -55,22 +55,22 @@ const ProductDetail = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
         </div>
 
-        <div className="container relative z-10 px-4">
+        <div className="container relative z-10 px-6 sm:px-8 md:px-4">
           <ScrollReveal variant="fade-up">
-            <Link to="/#products" className="inline-flex items-center text-primary/80 hover:text-primary mb-6 transition-colors">
+            <Link to="/#products" className="inline-flex items-center text-primary/80 hover:text-primary mb-6 transition-colors text-sm md:text-base">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Products
             </Link>
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-primary/20 rounded-xl backdrop-blur-sm border border-primary/20">
-                <Icon className="h-8 w-8 text-primary" />
+              <div className="p-2 md:p-3 bg-primary/20 rounded-xl backdrop-blur-sm border border-primary/20">
+                <Icon className="h-6 w-6 md:h-8 md:w-8 text-primary" />
               </div>
-              <span className="text-xl font-medium text-white/90">{product.subtitle}</span>
+              <span className="text-lg md:text-xl font-medium text-white/90">{product.subtitle}</span>
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
               {product.title}
             </h1>
-            <p className="text-xl text-white/80 max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed">
               {product.description}
             </p>
             <div className="flex gap-4 mt-8 flex-wrap">
@@ -96,34 +96,34 @@ const ProductDetail = () => {
       </section>
 
       {/* Main Content */}
-      <section className="py-20">
-        <div className="container px-4">
+      <section className="py-12 md:py-20">
+        <div className="container px-6 sm:px-8 md:px-4">
           <div className="grid lg:grid-cols-3 gap-12 xl:gap-20">
 
             {/* Left Column: Description & Benefits */}
             <div className="lg:col-span-2 space-y-12">
               <ScrollReveal variant="fade-right" delay={100}>
-                <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+                <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-3">
                   <Target className="text-primary" />
                   Overview
                 </h2>
-                <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground whitespace-pre-line">
+                <div className="prose prose-base md:prose-lg dark:prose-invert max-w-none text-muted-foreground whitespace-pre-line">
                   {product.fullDescription}
                 </div>
               </ScrollReveal>
 
               <ScrollReveal variant="fade-right" delay={200}>
-                <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+                <h2 className="text-2xl md:text-3xl font-bold mb-8 flex items-center gap-3">
                   <Shield className="text-primary" />
                   Key Benefits
                 </h2>
-                <div className="grid sm:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                   {product.benefits?.map((benefit, i) => (
-                    <div key={i} className="flex gap-4 p-6 rounded-2xl bg-card border hover:border-primary/50 transition-colors shadow-sm group">
+                    <div key={i} className="flex gap-4 p-5 md:p-6 rounded-2xl bg-card border hover:border-primary/50 transition-colors shadow-sm group">
                       <div className="shrink-0 mt-1">
-                        <CheckCircle className="h-6 w-6 text-primary group-hover:scale-110 transition-transform" />
+                        <CheckCircle className="h-5 w-5 md:h-6 md:w-6 text-primary group-hover:scale-110 transition-transform" />
                       </div>
-                      <p className="font-medium text-lg leading-snug">{benefit}</p>
+                      <p className="font-medium text-base md:text-lg leading-snug">{benefit}</p>
                     </div>
                   ))}
                 </div>
@@ -133,8 +133,8 @@ const ProductDetail = () => {
             {/* Right Column: Features Sidebar */}
             <div className="lg:col-span-1">
               <ScrollReveal variant="fade-left" delay={300} className="sticky top-24">
-                <div className="rounded-3xl bg-card border shadow-xl p-8">
-                  <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <div className="rounded-3xl bg-card border shadow-xl p-6 md:p-8">
+                  <h3 className="text-xl md:text-2xl font-bold mb-6 flex items-center gap-2">
                     <Activity className="text-primary" />
                     Core Features
                   </h3>
@@ -142,13 +142,13 @@ const ProductDetail = () => {
                     {product.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-3 pb-4 border-b last:border-0 border-border/50">
                         <div className="h-2 w-2 rounded-full bg-primary mt-2 shrink-0 animate-pulse" />
-                        <span className="text-muted-foreground font-medium">{feature}</span>
+                        <span className="text-sm md:text-base text-muted-foreground font-medium">{feature}</span>
                       </li>
                     ))}
                   </ul>
 
                   <div className="mt-8 pt-8 border-t border-border/50 space-y-4">
-                    <h4 className="font-semibold text-lg">Ready to transform your business?</h4>
+                    <h4 className="font-semibold text-base md:text-lg">Ready to transform your business?</h4>
                     
                     <div className="relative group">
                       {/* Pulsing Background Glow (Does not affect button text opacity) */}
@@ -186,11 +186,11 @@ const ProductDetail = () => {
       </section>
 
       {/* Footer CTA */}
-      <section className="py-20 bg-primary/5 border-t border-primary/10">
-        <div className="container px-4 text-center">
+      <section className="py-16 md:py-20 bg-primary/5 border-t border-primary/10">
+        <div className="container px-6 sm:px-8 md:px-4 text-center">
           <ScrollReveal variant="zoom-in">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Need a Custom Solution?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+            <h2 className="text-2xl md:text-4xl font-bold mb-6">Need a Custom Solution?</h2>
+            <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
               We can tailor {product.title} to fit your specific workflow requirements. Let's discuss your unique needs.
             </p>
             <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white transition-all text-lg px-8 h-12">
