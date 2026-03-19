@@ -63,13 +63,13 @@ const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false, isAbsoluteTopM
             className={`
         ${isAbsoluteTopMobile ? 'absolute xl:relative' : (isRelativeOnDesktop ? 'fixed xl:relative' : 'fixed')} z-50 transition-all duration-1000 ease-in-out pointer-events-none
         
-        /* Mobile: Compact, dynamically anchored */
-        w-[280px] h-[360px] scale-75 
-        ${isAbsoluteTopMobile ? '-top-20 -right-8 origin-top-right' : 'right-4 bottom-0 origin-bottom-right'}
+        /* Mobile: Compact, dynamically anchored, smaller */
+        w-[240px] h-[320px] scale-[0.55] 
+        ${isAbsoluteTopMobile ? '-top-8 right-10 origin-top-right' : 'right-4 bottom-0 origin-bottom-right'}
         
         /* Tablet: Slightly larger */
-        md:w-[400px] md:h-[500px] md:scale-90
-        ${isAbsoluteTopMobile ? 'md:-top-24 md:-right-12' : 'md:-right-12 md:bottom-0'}
+        md:w-[400px] md:h-[500px] md:scale-75
+        ${isAbsoluteTopMobile ? 'md:-top-12 md:-right-12' : 'md:-right-12 md:bottom-0'}
 
         /* Desktop: Full size, better positioned, toggleable absolute/relative */
         xl:w-[600px] xl:h-[700px] xl:-right-16 ${isRelativeOnDesktop ? 'xl:top-0 xl:-translate-y-0 xl:scale-100' : 'xl:top-[55%] xl:-translate-y-1/2 xl:scale-90'} xl:origin-center
@@ -97,17 +97,17 @@ const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false, isAbsoluteTopM
 
                 {/* === SCENE BACKGROUNDS === */}
 
-                {/* Coding: Desk setup - Lowered to not obstruct */}
+                {/* Coding: Desk setup - Desktop only */}
                 {variant === "coding" && (
-                    <div className="absolute bottom-[15%] right-20 w-80 xl:w-[400px] h-4 bg-[#5D4037] rounded-sm transform -skew-x-12 z-20 shadow-lg origin-bottom-right">
+                    <div className="hidden xl:block absolute bottom-[15%] right-20 w-80 xl:w-[400px] h-4 bg-[#5D4037] rounded-sm transform -skew-x-12 z-20 shadow-lg origin-bottom-right">
                         <div className="absolute top-4 left-10 w-4 h-32 bg-[#4E342E] skew-x-12"></div>
                         <div className="absolute top-4 right-20 w-4 h-32 bg-[#4E342E] skew-x-12"></div>
                     </div>
                 )}
 
-                {/* Server: Rack */}
+                {/* Server: Rack — visible on mobile with smaller size */}
                 {variant === "server" && (
-                    <div className="hidden md:flex absolute bottom-20 right-10 w-32 xl:w-48 h-64 xl:h-[500px] bg-slate-800 border-4 border-slate-700 rounded-lg z-0 flex-col gap-1 p-2 xl:p-3 shadow-2xl origin-bottom-right">
+                    <div className="flex absolute bottom-20 right-2 md:right-10 w-20 md:w-32 xl:w-48 h-40 md:h-64 xl:h-[500px] bg-slate-800 border-4 border-slate-700 rounded-lg z-0 flex-col gap-1 p-2 xl:p-3 shadow-2xl origin-bottom-right">
                         {Array.from({ length: 12 }).map((_, i) => (
                             <div key={i} className="flex gap-2 items-center h-4 xl:h-8 bg-slate-900 px-2 rounded border-t border-slate-700 overflow-hidden">
                                 <div className={`w-1.5 h-1.5 xl:w-2 xl:h-2 rounded-full ${i % 3 === 0 ? 'bg-green-500 animate-pulse' : 'bg-slate-600'}`}></div>
@@ -338,7 +338,7 @@ const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false, isAbsoluteTopM
             {/* === IOT VARIANT (EVE STYLE) === */}
             {variant === "iot" && (
                 <div
-                    className={`absolute left-2 md:left-20 xl:left-1/3 transition-all duration-700 ease-in-out z-30 pointer-events-auto cursor-pointer bottom-24 xl:bottom-40
+                    className={`absolute left-2 md:left-20 xl:left-1/3 transition-all duration-700 ease-in-out z-30 pointer-events-auto cursor-pointer bottom-4 md:bottom-24 xl:bottom-40
                         ${isPecking ? 'scale-95' : 'hover:scale-105'}
                         flex flex-col items-center
                         `}
