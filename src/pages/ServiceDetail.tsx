@@ -12,6 +12,7 @@ import serviceApp from "@/assets/services/mobile-Large.png";
 import serviceSoftware from "@/assets/services/se-app-Large.png";
 import serviceMarketing from "@/assets/services/marketing-Large.png";
 import serviceIotAi from "@/assets/services/IoT-Large.png";
+import ReactPixel from "react-facebook-pixel";
 
 const servicesData = {
   "web-development": {
@@ -158,6 +159,8 @@ const ServiceDetail = () => {
   const { serviceId } = useParams();
   const [isDark, setIsDark] = useState(true);
 
+  const service = servicesData[serviceId as keyof typeof servicesData];
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light") {
@@ -168,15 +171,23 @@ const ServiceDetail = () => {
       document.documentElement.classList.add("dark");
     }
     window.scrollTo(0, 0);
-  }, [serviceId]);
+
+    // Track ViewContent and update title
+    if (service) {
+      document.title = `${service.title} | OPHEX Services`;
+      ReactPixel.track('ViewContent', {
+        content_name: service.title,
+        content_type: 'service',
+        content_ids: [serviceId]
+      });
+    }
+  }, [serviceId, service]);
 
   const toggleTheme = () => {
     setIsDark(!isDark);
     document.documentElement.classList.toggle("dark");
     localStorage.setItem("theme", !isDark ? "dark" : "light");
   };
-
-  const service = servicesData[serviceId as keyof typeof servicesData];
 
   if (!service) {
     return (

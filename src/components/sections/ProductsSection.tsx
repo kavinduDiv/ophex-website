@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import { products } from "@/data/products";
 import { useRef } from "react";
@@ -15,7 +15,7 @@ const MobileHorizontalCarousel = ({ scrollYProgress }: any) => {
   return (
     <div className="sticky top-[10vh] flex items-center h-[80vh] w-full overflow-hidden">
       <motion.div style={{ x }} className="flex gap-6 px-4 pb-8">
-        {products.map((product, index) => (
+        {products.map((product) => (
           <div
             key={product.id}
             className={`group relative flex flex-col h-[500px] w-[85vw] max-w-sm shrink-0 overflow-hidden rounded-2xl bg-slate-900 border border-slate-800 shadow-[0_[-10px]_20px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(249,115,22,0.25)] hover:border-orange-500/50`}

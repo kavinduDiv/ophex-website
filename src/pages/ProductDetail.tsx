@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import { contactData } from "@/data/contact";
+import ReactPixel from "react-facebook-pixel";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -20,7 +21,17 @@ const ProductDetail = () => {
     }
 
     window.scrollTo(0, 0);
-  }, [productId]);
+
+    // Track ViewContent and update title
+    if (product) {
+      document.title = `${product.title} | OPHEX Solutions`;
+      ReactPixel.track('ViewContent', {
+        content_name: product.title,
+        content_type: 'product',
+        content_ids: [product.id]
+      });
+    }
+  }, [productId, product]);
 
   if (!product) {
     return (

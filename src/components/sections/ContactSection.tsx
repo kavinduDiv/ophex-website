@@ -8,6 +8,8 @@ import ScrollReveal from "@/components/animations/ScrollReveal";
 import emailjs from "@emailjs/browser"; // make sure to install @emailjs/browser
 import { contactData } from "@/data/contact";
 
+import ReactPixel from "react-facebook-pixel";
+
 const ContactSection = () => {
   //   const { toast } = useToast();
   emailjs.init("Oq4cH5jzNbnOYpSzx");
@@ -28,6 +30,10 @@ const ContactSection = () => {
 
     try {
       await emailjs.sendForm(serviceID, templateID, e.currentTarget as HTMLFormElement);
+      
+      // Facebook Pixel tracking on successful Contact submit
+      ReactPixel.track('Contact');
+      
       // optional: show a toast/alert on success
       alert("Sent!");
     } catch (err) {

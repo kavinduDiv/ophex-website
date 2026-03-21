@@ -3,15 +3,22 @@ import { FaWhatsapp } from "react-icons/fa";
 import { Headset } from "lucide-react";
 import { motion } from "framer-motion";
 import { contactData } from "@/data/contact";
+import ReactPixel from "react-facebook-pixel";
 
 const WhatsAppButton = () => {
     const [isHovered, setIsHovered] = useState(false);
+
+    const handleWhatsAppClick = () => {
+        // Track Click in Facebook Pixel
+        ReactPixel.trackCustom("WhatsAppClick");
+    };
 
     return (
         <motion.a
             href={`https://wa.me/${contactData.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleWhatsAppClick}
             className="fixed bottom-6 right-6 z-40 group flex items-center justify-center p-3 rounded-full bg-white text-black transition-colors duration-300"
             style={{
                 boxShadow: isHovered
