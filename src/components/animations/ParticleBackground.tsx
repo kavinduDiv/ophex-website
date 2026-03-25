@@ -29,7 +29,8 @@ const ParticleBackground = () => {
 
     const createParticles = () => {
       const particles: Particle[] = [];
-      const particleCount = Math.floor((window.innerWidth * window.innerHeight) / 15000);
+      const calculatedCount = Math.floor((window.innerWidth * window.innerHeight) / 15000);
+      const particleCount = Math.min(calculatedCount, 60);
 
       for (let i = 0; i < particleCount; i++) {
         particles.push({
@@ -69,9 +70,11 @@ const ParticleBackground = () => {
         particlesRef.current.slice(index + 1).forEach((otherParticle) => {
           const dx = particle.x - otherParticle.x;
           const dy = particle.y - otherParticle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (Math.abs(dx) < 150 && Math.abs(dy) < 150) {
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 150) {
+            if (distance < 150) {
             ctx.beginPath();
             ctx.strokeStyle = `hsla(24, 95%, 53%, ${0.1 * (1 - distance / 150)})`;
             ctx.lineWidth = 0.5;
@@ -79,6 +82,7 @@ const ParticleBackground = () => {
             ctx.lineTo(otherParticle.x, otherParticle.y);
             ctx.stroke();
           }
+        }
         });
 
         // Mouse interaction

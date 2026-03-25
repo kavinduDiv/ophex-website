@@ -32,7 +32,7 @@ const ClientsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let animationFrameId: number;
+    let intervalId: number;
 
     const checkFocus = () => {
       if (!containerRef.current) return;
@@ -45,23 +45,21 @@ const ClientsSection = () => {
         const rect = item.getBoundingClientRect();
         // Skip items that are completely off-screen to save calculations
         if (rect.right < 0 || rect.left > window.innerWidth) {
-          item.removeAttribute('data-focused');
+          if (item.hasAttribute('data-focused')) item.removeAttribute('data-focused');
           return;
         }
 
         const itemCenter = rect.left + rect.width / 2;
         if (Math.abs(itemCenter - viewportCenter) < focusZoneRadius) {
-          item.setAttribute('data-focused', 'true');
+          if (!item.hasAttribute('data-focused')) item.setAttribute('data-focused', 'true');
         } else {
-          item.removeAttribute('data-focused');
+          if (item.hasAttribute('data-focused')) item.removeAttribute('data-focused');
         }
       });
-
-      animationFrameId = requestAnimationFrame(checkFocus);
     };
 
-    checkFocus();
-    return () => cancelAnimationFrame(animationFrameId);
+    intervalId = window.setInterval(checkFocus, 100);
+    return () => window.clearInterval(intervalId);
   }, []);
 
   return (
