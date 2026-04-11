@@ -1,28 +1,31 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false, isAbsoluteTopMobile = false }: { serviceId: string, isRelativeOnDesktop?: boolean, isAbsoluteTopMobile?: boolean }) => {
     const [isBlinking, setIsBlinking] = useState(false);
     const [lookDirection, setLookDirection] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
     const [isPecking, setIsPecking] = useState(false);
+    const isMobile = useRef(typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches);
 
-    // Random blinking logic
+    // Blink every 7 s (was 4 s)
     useEffect(() => {
+        if (isMobile.current) return; // skip on mobile to save battery
         const blinkInterval = setInterval(() => {
             setIsBlinking(true);
-            setTimeout(() => setIsBlinking(false), 200);
-        }, 4000);
+            setTimeout(() => setIsBlinking(false), 180);
+        }, 7000);
         return () => clearInterval(blinkInterval);
     }, []);
 
-    // Random eye movement logic
+    // Eye movement every 6 s (was 3 s)
     useEffect(() => {
+        if (isMobile.current) return; // skip on mobile
         const moveInterval = setInterval(() => {
             const x = Math.random() * 6 - 3;
             const y = Math.random() * 4 - 2;
             setLookDirection({ x, y });
-        }, 3000);
+        }, 6000);
         return () => clearInterval(moveInterval);
     }, []);
 
