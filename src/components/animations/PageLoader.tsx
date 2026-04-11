@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import ophexDark from "@/assets/ophex_dark.png";
 import ophexLight from "@/assets/ophex_light.png";
 
-const circuitPaths = [
+// All circuit paths — but we'll only use a subset on mobile
+const allCircuitPaths = [
   "M 0 150 H 300 L 350 200 H 800 L 850 150 H 1920",
   "M 0 300 H 150 L 200 250 H 500 L 550 300 H 1920",
   "M 0 700 H 400 L 450 750 H 900 L 950 700 H 1920",
@@ -25,23 +26,30 @@ const PageLoader = () => {
   const [loading, setLoading] = useState(() => !sessionStorage.getItem("hasLoadedOnce"));
   const [fadeOut, setFadeOut] = useState(false);
   const [logoLoaded, setLogoLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // If not loading on initial render, skip setting timers entirely
-    if (!loading) return;
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
-    // Mark as loaded for future navigation in this session
+  // Memoize random values so they are stable across renders
+  // (Math.random() in JSX re-runs on every render and can cause different animation durations each time)
+  const pathAnimations = useMemo(() => {
+    return allCircuitPaths.map(() => ({
+      duration: Math.random() * 3 + 3,
+      delay: Math.random() * 2,
+    }));
+  }, []);
+
+  // On mobile: use only 5 paths (reduce from 15 to 5)
+  const circuitPaths = isMobile ? allCircuitPaths.slice(0, 5) : allCircuitPaths;
+
+  useEffect(() => {
+    if (!loading) return;
     sessionStorage.setItem("hasLoadedOnce", "true");
 
-    // Start fade out after 5 seconds
-    const fadeTimer = setTimeout(() => {
-      setFadeOut(true);
-    }, 5000);
-
-    // Remove loader completely after fade out completes
-    const removeTimer = setTimeout(() => {
-      setLoading(false);
-    }, 5500);
+    const fadeTimer = setTimeout(() => setFadeOut(true), 5000);
+    const removeTimer = setTimeout(() => setLoading(false), 5500);
 
     return () => {
       clearTimeout(fadeTimer);
@@ -53,13 +61,14 @@ const PageLoader = () => {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#0a0a0a] overflow-hidden transition-opacity duration-500 ${fadeOut ? "opacity-0" : "opacity-100"
-        }`}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#0a0a0a] overflow-hidden transition-opacity duration-500 ${
+        fadeOut ? "opacity-0" : "opacity-100"
+      }`}
     >
-      {/* Absolute Black Background */}
+      {/* Background */}
       <div className="absolute inset-0 bg-black pointer-events-none" />
 
-      {/* Dynamic Neon Circuit Paths (SVG) */}
+      {/* Circuit Paths SVG */}
       <div className="absolute inset-0 pointer-events-none opacity-60">
         <svg
           className="w-full h-full"
@@ -68,14 +77,14 @@ const PageLoader = () => {
         >
           {circuitPaths.map((d, i) => (
             <g key={i}>
-              {/* Faint background track */}
+              {/* Faint static track */}
               <path
                 d={d}
                 fill="none"
                 stroke="rgba(249,115,22,0.15)"
                 strokeWidth="1"
               />
-              {/* Animated glowing spark traveling along the path */}
+              {/* Animated spark — no drop-shadow filter on mobile (very expensive on SVG) */}
               <motion.path
                 d={d}
                 fill="none"
@@ -86,12 +95,13 @@ const PageLoader = () => {
                 initial={{ strokeDashoffset: 4000 }}
                 animate={{ strokeDashoffset: -4000 }}
                 transition={{
-                  duration: Math.random() * 3 + 3, // Random speed between 3s and 6s
+                  duration: pathAnimations[i].duration,
                   repeat: Infinity,
                   ease: "linear",
-                  delay: Math.random() * 2, // Staggered start times
+                  delay: pathAnimations[i].delay,
                 }}
-                className="drop-shadow-[0_0_8px_rgba(249,115,22,1)]"
+                // drop-shadow filter only on desktop — CSS filters on SVG paths are extremely heavy on mobile
+                className={isMobile ? "" : "drop-shadow-[0_0_8px_rgba(249,115,22,1)]"}
               />
             </g>
           ))}
@@ -99,8 +109,7 @@ const PageLoader = () => {
       </div>
 
       <div className="flex flex-col items-center gap-12 relative z-10 w-full max-w-md px-8">
-
-        {/* Logo Container */}
+        {/* Logo */}
         <motion.div
           className="relative"
           initial={{ scale: 0.8, opacity: 0, y: 20 }}
@@ -108,14 +117,12 @@ const PageLoader = () => {
           transition={{ duration: 1.5, ease: "easeOut" }}
         >
           <div className="relative h-28 w-64 flex items-center justify-center z-10 drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]">
-            {/* Base Dark Logo */}
             <img
               src={ophexDark}
               alt=""
               onLoad={() => setLogoLoaded(true)}
               className="absolute inset-0 w-full h-full object-contain"
             />
-            {/* Alternating Light Logo for "Brightening" Effect */}
             <motion.img
               src={ophexLight}
               alt=""
@@ -126,28 +133,27 @@ const PageLoader = () => {
           </div>
         </motion.div>
 
-        {/* Loading Progress Section */}
+        {/* Progress Section */}
         <div className="w-full flex flex-col items-center gap-4">
-
-          {/* Progress Bar Container */}
           <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden relative">
-            {/* The actual progressing bar */}
             <motion.div
               className="absolute top-0 left-0 bottom-0 bg-gradient-to-r from-orange-600 via-orange-400 to-amber-300 rounded-full"
               initial={{ width: "0%" }}
               animate={{ width: "100%" }}
-              transition={{ duration: 4.8, ease: "easeInOut" }} // Finished just before fade out
-            />
-            {/* Sparkle on the leading edge */}
-            <motion.div
-              className="absolute top-0 bottom-0 w-4 bg-white blur-[2px]"
-              initial={{ left: "0%" }}
-              animate={{ left: "100%" }}
               transition={{ duration: 4.8, ease: "easeInOut" }}
             />
+            {/* Sparkle on leading edge — skip on mobile */}
+            {!isMobile && (
+              <motion.div
+                className="absolute top-0 bottom-0 w-4 bg-white blur-[2px]"
+                initial={{ left: "0%" }}
+                animate={{ left: "100%" }}
+                transition={{ duration: 4.8, ease: "easeInOut" }}
+              />
+            )}
           </div>
 
-          {/* Status Text Sequence */}
+          {/* Status Text */}
           <div className="h-6 w-full flex items-center justify-center relative overflow-hidden">
             <motion.div
               initial={{ y: 20, opacity: 0 }}
@@ -176,7 +182,6 @@ const PageLoader = () => {
               System Ready
             </motion.div>
           </div>
-
         </div>
       </div>
     </div>

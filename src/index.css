@@ -432,14 +432,17 @@
 
 .animate-float-slow {
   animation: float-slow 8s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-float-medium {
   animation: float-medium 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-float-fast {
   animation: float-fast 4s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-spin-slow {
@@ -667,8 +670,14 @@
 
 .glass-effect {
   background: hsl(var(--card) / 0.8);
-  backdrop-filter: blur(12px);
   border: 1px solid hsl(var(--border) / 0.5);
+}
+
+/* Only apply backdrop-filter where the browser & GPU can handle it */
+@supports (backdrop-filter: blur(12px)) {
+  .glass-effect {
+    backdrop-filter: blur(12px);
+  }
 }
 
 /* ============================================
@@ -741,4 +750,42 @@
 
 .delay-500 {
   transition-delay: 500ms;
+}
+
+/* ============================================
+   REDUCED MOTION — respect user accessibility preference
+   and avoid burning mobile CPU/GPU
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-float-medium,
+  .animate-float-fast,
+  .animate-spin-slow,
+  .animate-morph,
+  .animate-bounce-slow,
+  .animate-pulse-slow,
+  .animate-gradient-shift,
+  .animate-shimmer,
+  .text-shimmer {
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   MOBILE PERF — disable the heaviest animations
+   on small screens at the CSS level as a safety net
+   ============================================ */
+
+@media (max-width: 767px) {
+  .animate-morph {
+    animation: none;
+  }
+  .animate-gradient-shift {
+    animation: none;
+  }
+  /* Limit blur on mobile — blur-3xl triggers compositing layers */
+  .blur-3xl {
+    filter: blur(24px); /* downgrade blur-3xl (64px) to 24px on mobile */
+  }
 }

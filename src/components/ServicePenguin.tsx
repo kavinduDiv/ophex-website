@@ -1,31 +1,28 @@
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false, isAbsoluteTopMobile = false }: { serviceId: string, isRelativeOnDesktop?: boolean, isAbsoluteTopMobile?: boolean }) => {
     const [isBlinking, setIsBlinking] = useState(false);
     const [lookDirection, setLookDirection] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
     const [isPecking, setIsPecking] = useState(false);
-    const isMobile = useRef(typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches);
 
-    // Blink every 7 s (was 4 s)
+    // Random blinking logic
     useEffect(() => {
-        if (isMobile.current) return; // skip on mobile to save battery
         const blinkInterval = setInterval(() => {
             setIsBlinking(true);
-            setTimeout(() => setIsBlinking(false), 180);
-        }, 7000);
+            setTimeout(() => setIsBlinking(false), 200);
+        }, 4000);
         return () => clearInterval(blinkInterval);
     }, []);
 
-    // Eye movement every 6 s (was 3 s)
+    // Random eye movement logic
     useEffect(() => {
-        if (isMobile.current) return; // skip on mobile
         const moveInterval = setInterval(() => {
             const x = Math.random() * 6 - 3;
             const y = Math.random() * 4 - 2;
             setLookDirection({ x, y });
-        }, 6000);
+        }, 3000);
         return () => clearInterval(moveInterval);
     }, []);
 
@@ -63,8 +60,9 @@ const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false, isAbsoluteTopM
 
     return (
         <div
+            style={{ willChange: 'transform', contain: 'layout style' }}
             className={`
-        ${isAbsoluteTopMobile ? 'absolute xl:relative' : (isRelativeOnDesktop ? 'fixed xl:relative' : 'fixed')} z-50 transition-all duration-1000 ease-in-out pointer-events-none
+        ${isAbsoluteTopMobile ? 'absolute xl:relative' : (isRelativeOnDesktop ? 'fixed xl:relative' : 'fixed')} z-50 pointer-events-none
         
         /* Mobile: Compact, dynamically anchored, smaller */
         w-[240px] h-[320px] scale-[0.55] 
@@ -78,7 +76,7 @@ const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false, isAbsoluteTopM
         xl:w-[600px] xl:h-[700px] xl:-right-16 ${isRelativeOnDesktop ? 'xl:top-0 xl:-translate-y-0 xl:scale-100' : 'xl:top-[55%] xl:-translate-y-1/2 xl:scale-90'} xl:origin-center
       `}
         >
-            <div className={`relative w-full h-full transition-transform duration-300`}>
+            <div className={`relative w-full h-full`}>
 
                 {/* === SPEECH BUBBLE (Quote Style) === */}
                 {/* Desktop & Mobile Unified Quote Style - Next to Head */}
@@ -349,45 +347,45 @@ const ServicePenguin = ({ serviceId, isRelativeOnDesktop = false, isAbsoluteTopM
                     onMouseLeave={() => setIsHovered(false)}
                     onClick={handleInteraction}
                 >
-                    {/* Electro-Magnetic Field / Glow */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/5 rounded-full blur-3xl animate-pulse"></div>
+                    {/* Electro-Magnetic Field / Glow — desktop only (blur-3xl is very GPU intensive) */}
+                    <div className="hidden xl:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/5 rounded-full blur-3xl animate-pulse"></div>
 
-                    {/* Floating Head */}
-                    <div className="relative mb-4 w-32 xl:w-40 h-24 xl:h-28 bg-gradient-to-br from-white via-slate-100 to-slate-300 rounded-[50%_50%_45%_45%_/_60%_60%_40%_40%] shadow-[0_10px_20px_rgba(0,0,0,0.1)] z-50 animate-float-slow">
+                    {/* Head — float animation desktop only */}
+                    <div className="relative mb-4 w-32 xl:w-40 h-24 xl:h-28 bg-gradient-to-br from-white via-slate-100 to-slate-300 rounded-[50%_50%_45%_45%_/_60%_60%_40%_40%] shadow-[0_10px_20px_rgba(0,0,0,0.1)] z-50 xl:animate-float-slow">
                         {/* Face Screen */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-24 xl:w-32 h-16 xl:h-20 bg-black rounded-[45%] overflow-hidden shadow-inner flex items-center justify-center gap-3 xl:gap-4">
                             {/* Neon Orange Eyes */}
-                            <div className={`w-6 xl:w-8 h-4 xl:h-5 bg-[#f97316] rounded-full shadow-[0_0_15px_#f97316] transition-all duration-100 ${isBlinking ? 'scale-y-10' : 'scale-y-100'}`}
+                            <div className={`w-6 xl:w-8 h-4 xl:h-5 bg-[#f97316] rounded-full transition-all duration-100`}
                                 style={{ transform: `translate(${lookDirection.x * 2}px, ${lookDirection.y * 2}px) scaleY(${isBlinking ? 0.1 : 1})` }}></div>
-                            <div className={`w-6 xl:w-8 h-4 xl:h-5 bg-[#f97316] rounded-full shadow-[0_0_15px_#f97316] transition-all duration-100 ${isBlinking ? 'scale-y-10' : 'scale-y-100'}`}
+                            <div className={`w-6 xl:w-8 h-4 xl:h-5 bg-[#f97316] rounded-full transition-all duration-100`}
                                 style={{ transform: `translate(${lookDirection.x * 2}px, ${lookDirection.y * 2}px) scaleY(${isBlinking ? 0.1 : 1})` }}></div>
 
                             {/* Cute Digital Beak */}
-                            <div className="absolute top-[70%] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[10px] border-t-[#f97316] drop-shadow-[0_0_5px_#f97316]"></div>
+                            <div className="absolute top-[70%] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[10px] border-t-[#f97316]"></div>
                         </div>
 
                         {/* Gloss Reflection */}
                         <div className="absolute top-2 left-6 w-8 h-4 bg-white/40 rounded-full rotate-12 blur-[1px]"></div>
                     </div>
 
-                    {/* Connection Waves (Neck) */}
-                    <div className="absolute top-[5.5rem] xl:top-[6.4rem] left-1/2 -translate-x-1/2 w-12 h-8 flex flex-col items-center justify-center gap-1 opacity-60">
+                    {/* Connection Waves (Neck) — desktop only */}
+                    <div className="hidden xl:flex absolute top-[5.5rem] xl:top-[6.4rem] left-1/2 -translate-x-1/2 w-12 h-8 flex-col items-center justify-center gap-1 opacity-60">
                         {[1, 2, 3].map(i => (
-                            <div key={i} className={`w-full h-[1px] bg-cyan-400 shadow-[0_0_5px_#22d3ee] rounded-full animate-ping-slow`} style={{ animationDelay: `${i * 0.5}s` }}></div>
+                            <div key={i} className={`w-full h-[1px] bg-cyan-400 rounded-full animate-ping-slow`} style={{ animationDelay: `${i * 0.5}s` }}></div>
                         ))}
                     </div>
 
-                    {/* Floating Body */}
-                    <div className="relative w-36 xl:w-48 h-48 xl:h-64 bg-gradient-to-br from-white via-slate-100 to-slate-200 rounded-[50%_50%_40%_40%_/_60%_60%_30%_30%] shadow-2xl z-40 animate-float-medium flex flex-col items-center overflow-hidden">
+                    {/* Body — float animation desktop only */}
+                    <div className="relative w-36 xl:w-48 h-48 xl:h-64 bg-gradient-to-br from-white via-slate-100 to-slate-200 rounded-[50%_50%_40%_40%_/_60%_60%_30%_30%] shadow-2xl z-40 xl:animate-float-medium flex flex-col items-center overflow-hidden">
                         {/* Chest Light */}
                         <div className="mt-8 w-16 h-16 bg-gradient-to-br from-slate-200 to-white rounded-full border border-slate-300/50 flex items-center justify-center shadow-inner">
-                            <div className="w-2 h-2 bg-green-400 rounded-full shadow-[0_0_8px_#4ade80] animate-pulse"></div>
+                            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                         </div>
                     </div>
 
-                    {/* Floating Arms */}
-                    <div className="absolute top-36 -left-8 xl:-left-12 w-10 xl:w-14 h-32 xl:h-40 bg-gradient-to-r from-white to-slate-200 rounded-full shadow-lg z-40 animate-float-reverse origin-top rotate-12"></div>
-                    <div className="absolute top-36 -right-8 xl:-right-12 w-10 xl:w-14 h-32 xl:h-40 bg-gradient-to-l from-white to-slate-200 rounded-full shadow-lg z-40 animate-float-reverse-delayed origin-top -rotate-12"></div>
+                    {/* Arms — float animations desktop only */}
+                    <div className="absolute top-36 -left-8 xl:-left-12 w-10 xl:w-14 h-32 xl:h-40 bg-gradient-to-r from-white to-slate-200 rounded-full shadow-lg z-40 xl:animate-float-reverse origin-top rotate-12"></div>
+                    <div className="absolute top-36 -right-8 xl:-right-12 w-10 xl:w-14 h-32 xl:h-40 bg-gradient-to-l from-white to-slate-200 rounded-full shadow-lg z-40 xl:animate-float-reverse-delayed origin-top -rotate-12"></div>
 
                 </div>
             )}
