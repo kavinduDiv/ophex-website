@@ -21,13 +21,15 @@ const ParticleBackground = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const isMobile = window.innerWidth < 768;
-    // 30fps on mobile (~33ms), 60fps on desktop (~16ms)
-    const frameBudget = isMobile ? 33 : 16;
-    // Max particles: 12 on mobile, 40 on desktop
-    const maxParticles = isMobile ? 12 : 40;
-    // Connection distance: skip entirely on mobile
-    const connectionDist = isMobile ? 0 : 130;
+    const isDesktop = window.innerWidth >= 1024;
+    // 60fps on desktop (~16ms), throttled logic kept for safety
+    const frameBudget = 16;
+    // Max particles: 100 on desktop, 0 on mobile/tablet
+    const maxParticles = isDesktop ? 120 : 0;
+    // Connection distance: desktop only
+    const connectionDist = isDesktop ? 150 : 0;
+
+    const mouseRef = { x: -1000, y: -1000 };
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -35,20 +37,17 @@ const ParticleBackground = () => {
     };
 
     const createParticles = () => {
-      const mobile = window.innerWidth < 768;
-      const max = mobile ? 12 : Math.min(
-        Math.floor((window.innerWidth * window.innerHeight) / 18000),
-        40
-      );
+      const desktop = window.innerWidth >= 1024;
+      const max = desktop ? 120 : 0;
       const particles: Particle[] = [];
       for (let i = 0; i < max; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 2 + 1,
+          size: Math.random() * 3.5 + 0.5,
           speedX: (Math.random() - 0.5) * 0.4,
           speedY: (Math.random() - 0.5) * 0.4,
-          opacity: Math.random() * 0.4 + 0.15,
+          opacity: Math.random() * 0.5 + 0.1,
         });
       }
       particlesRef.current = particles;
@@ -66,8 +65,21 @@ const ParticleBackground = () => {
       const particles = particlesRef.current;
 
       particles.forEach((p, index) => {
+        // Basic movement
         p.x += p.speedX;
         p.y += p.speedY;
+
+        // Mouse avoidance (Desktop only)
+        if (isDesktop) {
+          const dx = mouseRef.x - p.x;
+          const dy = mouseRef.y - p.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 100) {
+            p.x -= dx * 0.03;
+            p.y -= dy * 0.03;
+          }
+        }
+
         if (p.x > canvas.width) p.x = 0;
         if (p.x < 0) p.x = canvas.width;
         if (p.y > canvas.height) p.y = 0;
@@ -105,15 +117,22 @@ const ParticleBackground = () => {
       createParticles();
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.x = e.clientX;
+      mouseRef.y = e.clientY;
+    };
+
     resizeCanvas();
     createParticles();
     animationRef.current = requestAnimationFrame(drawParticles);
 
     window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
