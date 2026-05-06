@@ -25,7 +25,7 @@ const ParticleBackground = () => {
     // 30fps on mobile (~33ms), 60fps on desktop (~16ms)
     const frameBudget = isMobile ? 33 : 16;
     // Max particles: 12 on mobile, 40 on desktop
-    const maxParticles = isMobile ? 12 : 40;
+    // const maxParticles = isMobile ? 12 : 40;
     // Connection distance: skip entirely on mobile
     const connectionDist = isMobile ? 0 : 130;
 

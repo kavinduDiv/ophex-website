@@ -97,9 +97,9 @@ const HeroSection = () => {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 animate-fade-in stagger-4">
             {[
-              { value: "20+", label: "Projects Completed" },
-              { value: "10+", label: "Happy Clients" },
-              { value: "2+", label: "Years Experience" },
+              { value: "28+", label: "Projects Completed" },
+              { value: "15+", label: "Happy Clients" },
+              { value: "3+", label: "Years Experience" },
               { value: "24/7", label: "Support" },
             ].map((stat, index) => (
               <div key={stat.label} className={`text-center stagger-${index + 4}`}>
