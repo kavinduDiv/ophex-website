@@ -44,6 +44,11 @@ const Index = () => {
     }
   }, []);
 
+  // Reset page title on home
+  useEffect(() => {
+    document.title = "OPHEX Solutions | Leading Software Agency";
+  }, []);
+
   const toggleTheme = () => {
     setIsDark(!isDark);
     document.documentElement.classList.toggle("dark");
